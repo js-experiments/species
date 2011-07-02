@@ -6,7 +6,7 @@
 Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
 
 - no side effect with variable scope
-- able to call super(parent) constructor event with several Class generations
+- able to call super(parent) constructor even with several Class generations
 - able to call parent method in overridden method
 
 ##Usage
