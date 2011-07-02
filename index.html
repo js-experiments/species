@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC>
 <script src="js/species.js"></script>
 <script>
-
+    console.time('species');
     var Animal = Species.Class({
         name : '???',
         position : { x:0, y:0 },
@@ -60,7 +60,7 @@
     d1.sayHello();
     a1.sayHello();
     a2.sayHello();
-
+    console.timeEnd('species');
 
 
 </script>

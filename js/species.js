@@ -17,14 +17,12 @@ var Species = (function () {
         }
 
         for(m in class_def) {
-            if(m != 'Extends') { if(m != 'New') {
-                Object.defineProperty(k, m,{
-                    value : class_def[m],
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                });
-            }}
+            Object.defineProperty(k, m,{
+                value : class_def[m],
+                writable: true,
+                enumerable: true,
+                configurable: true
+            });
         }
 
         k.New = function(props) {
