@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC>
+<script src="js/species.js"></script>
+<script>
+
+    var Animal = Species.Class({
+        name : '???',
+        position : { x:0, y:0 },
+        sayHello : function() {
+            console.log('Hello, i am ' +
+                this.name + ', pos : ' +
+                this.position.x + ' ' + this.position.y);
+        },
+        getPosition : function() { console.log(this.position.x, this.position.y)},
+        setPosition : function(x,y) { this.position.x = x; this.position.y = y; },
+        initialize : function(args) {
+            console.log('Animal constructor');
+            this.name = args.name;
+            this.position = args.position;
+        }
+
+    });
+
+    var a1 = Animal.New({ name :'A1', position : { x:5,y:5 } });
+    var a2 = Animal.New({ name :'A2', position : { x:7,y:8 } });
+
+
+    var Dog = Species.Class({
+        Extends : Animal,
+        kind : '?',
+        initialize : function(args) {
+            console.log('Dog constructor');
+            this.kind = args.kind;
+            Dog.parent.initialize.call(this,args);
+        }
+    });
+    var dd = Dog.New({kind:'YORK',name : 'Virginie', position : {x:99,y:66}})
+
+    var d1 = Dog.New({ kind : 'Berger Belge', name :'D1', position : { x:12,y:12 } });
+
+
+    var LittleDog = Species.Class({
+        Extends : Dog,
+        initialize : function(args) {
+            console.log('LittleDog constructor');
+            LittleDog.parent.initialize.call(this,args);
+        }
+    });
+
+    var z1 = LittleDog.New({ kind : 'Chiwawa', name :'Z1', position : { x:35,y:35 } });
+    var zz = LittleDog.New({kind:'CHIWOUAWOUA',name : 'Cookie', position : {x:949,y:656}})
+
+    earth = {};
+
+    earth.z2 = LittleDog.New({ kind : 'BullDog', name :'Z2', position : { x:33,y:33 } });
+
+    dd.sayHello();
+    zz.sayHello();
+    earth.z2.sayHello();
+    z1.sayHello();
+    d1.sayHello();
+    a1.sayHello();
+    a2.sayHello();
+
+
+
+</script>
