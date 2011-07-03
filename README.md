@@ -71,6 +71,10 @@ Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
     var cookie = LittleDog.New({ kind : 'Chiwawa', name :'Cookie', position : { x:1,y:1 } });
     cookie.sayHello();
 
+##Patterns
+
+- Singleton :
+
 
 - - -
 
