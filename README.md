@@ -73,9 +73,9 @@ Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
 
 ##Patterns
 
-- Singleton : cf. /doc/Patterns/01-SINGLETON.md
-- Factory : cf. /doc/Patterns/02-FACTORY.md
-- Proxy : cf. /doc/Patterns/03-PROXY.md
+- Singleton : [http://jsfiddle.net/k33g_org/3THyk/](http://jsfiddle.net/k33g_org/3THyk/)
+- Factory : [http://jsfiddle.net/k33g_org/Uvkp7/1/](http://jsfiddle.net/k33g_org/Uvkp7/1/)
+- Proxy : [http://jsfiddle.net/k33g_org/ntEG5/](http://jsfiddle.net/k33g_org/ntEG5/)
 
 - - -
 
