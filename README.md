@@ -73,7 +73,7 @@ Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
 
 ##Patterns
 
-- Singleton :
+- Singleton : cf. /doc/Patterns/01-SINGLETON.md
 
 
 - - -
