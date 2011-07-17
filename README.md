@@ -76,6 +76,7 @@ Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
 - Singleton : [http://jsfiddle.net/k33g_org/3THyk/](http://jsfiddle.net/k33g_org/3THyk/)
 - Factory : [http://jsfiddle.net/k33g_org/Uvkp7/1/](http://jsfiddle.net/k33g_org/Uvkp7/1/)
 - Proxy : [http://jsfiddle.net/k33g_org/ntEG5/](http://jsfiddle.net/k33g_org/ntEG5/)
+- Decorator : [http://jsfiddle.net/k33g_org/NAsBv/](http://jsfiddle.net/k33g_org/NAsBv/)
 
 - - -
 

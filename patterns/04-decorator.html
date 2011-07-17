@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+    <title>Singleton</title>
+</head>
+<body>
+</body>
+<script src="console.js"></script>
+<script src="../js/species.js"></script>
+<script>
+    console.log('<b>/*--- DECORATOR ---*/</b>');
+</script>
+<script id='decorator'>
+
+    var Car = Species.Class({
+        price : 0,
+        Price : function(arg){
+            return arg === undefined ? this.price : this.price = arg;
+        }
+    });
+
+    var AstonMartin = Species.Class({
+        Extends : Car,
+        initialize : function() {
+            this.Price(1000000);
+            console.log("Aston Martin base price : " + this.Price());
+        }
+    });
+
+
+    var Option = Species.Class({
+        Extends : Car,
+        originalCar : null,
+        optionPrice : null,
+        initialize : function(originalCar, optionPrice){
+            this.originalCar = originalCar;
+            this.optionPrice = optionPrice;
+        },
+
+        Price : function(){
+            return this.originalCar.Price() + this.optionPrice;
+        }
+
+    });
+
+    var AirConditioning = Species.Class({
+        Extends : Option,
+        initialize : function(car) {
+            AirConditioning.parent.initialize.call(this,car,5000);
+            console.log("AirConditioning : 5000");
+        }
+    });
+
+    var Parachute = Species.Class({
+        Extends : Option,
+        initialize : function(car) {
+            Parachute.parent.initialize.call(this,car,55000);
+            console.log("Parachute : 55000");
+        }
+    });
+
+    var Amphibious = Species.Class({
+        Extends : Option,
+        initialize : function(car) {
+            Amphibious.parent.initialize.call(this,car,555000);
+            console.log("Amphibious : 555000");
+        }
+    });
+
+
+    var astonMartin = AstonMartin.New();
+    astonMartin = AirConditioning.New(astonMartin);
+    astonMartin = Parachute.New(astonMartin);
+    astonMartin = Amphibious.New(astonMartin);
+
+    console.log("Aston Martin total price : " + astonMartin.Price());
+
+
+
+</script>
+<script>
+    console.code('decorator');
+</script>
+</html>
