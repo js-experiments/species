@@ -94,25 +94,19 @@ it's possible if you use named function with the constructor :
     var bob = human.New("bob");
     var wolf = animal.New("wolf");
 
-`bob.typeName` is equals to `"human"`
-
-`wolf.typeName` is equals to `"animal"`
-
-
-`bob.isInstanceOf(human)` returns `true`
-
-`wolf.isInstanceOf(human)` returns `false`
-
-`human.isInstanceOf(human)` returns `false`
+- `bob.typeName` is equals to `"human"`
+- `wolf.typeName` is equals to `"animal"`
 
 
-`bob.isInstance` is equals to `true`
+- `bob.isInstanceOf(human)` returns `true`
+- `wolf.isInstanceOf(human)` returns `false`
+- `human.isInstanceOf(human)` returns `false`
 
-`wolf.isInstance` is equals to `true`
 
-`human.isInstance` is equals to `false`
-
-`animal.isInstance` is equals to `false`
+- `bob.isInstance` is equals to `true`
+- `wolf.isInstance` is equals to `true`
+- `human.isInstance` is equals to `false`
+- `animal.isInstance` is equals to `false`
 
 
 
