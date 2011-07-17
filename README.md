@@ -71,6 +71,51 @@ Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
     var cookie = LittleDog.New({ kind : 'Chiwawa', name :'Cookie', position : { x:1,y:1 } });
     cookie.sayHello();
 
+##Typing your classes
+
+it's possible if you use named function with the constructor :
+
+###Usage
+
+    var human = Class({
+        name : "",
+        initialize : function human(n){
+            this.name = n;
+        }
+    });
+
+    var animal = Class({
+        name : "",
+        initialize : function animal(n){
+            this.name = n;
+        }
+    });
+
+    var bob = human.New("bob");
+    var wolf = animal.New("wolf");
+
+`bob.typeName` is equals to `"human"`
+
+`wolf.typeName` is equals to `"animal"`
+
+
+`bob.isInstanceOf(human)` returns `true`
+
+`wolf.isInstanceOf(human)` returns `false`
+
+`human.isInstanceOf(human)` returns `false`
+
+
+`bob.isInstance` is equals to `true`
+
+`wolf.isInstance` is equals to `true`
+
+`human.isInstance` is equals to `false`
+
+`animal.isInstance` is equals to `false`
+
+
+
 ##Patterns
 
 - Singleton : [http://jsfiddle.net/k33g_org/3THyk/](http://jsfiddle.net/k33g_org/3THyk/)
