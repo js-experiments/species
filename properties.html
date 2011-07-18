@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+    <title>Singleton</title>
+</head>
+<body>
+</body>
+<script src="patterns/console.js"></script>
+<script src="js/species.min.js"></script>
+<script>
+    console.log('<b>/*--- PROPERTIES ---*/</b>');
+</script>
+<script id="properties">
+
+    var Base = Species.Class({
+        initialize:function(){ console.log("Base Constructor"); }
+    });
+
+    var Human = Species.Class({
+        Extends : Base,
+        _firstName : "",
+        _lastName : "",
+        _age : 0,
+
+        FirstName : {
+            get : function () {
+                console.log('get FirstName : ' + this._firstName);
+                return this._firstName;
+            },
+            set : function (value) {
+                console.log('set FirstName : ' + value);
+                this._firstName = value;
+            }
+        },
+
+        LastName : {
+            get : function () {
+                console.log('get LastName : ' + this._lastName);
+                return this._lastName;
+            },
+            set : function (value) {
+                console.log('set LastName : ' + value);
+                this._lastName = value;
+            }
+        },
+
+        Age : {
+            get : function () {
+                console.log('get Age : ' + this._age);
+                return this._age;
+            }
+        },
+
+        AddYears : function(y) { this._age += y; },
+
+        initialize : function _Human (args) {
+            Human.parent.initialize(this);
+            var m;
+            for(m in args) {
+                this[m] = args[m];
+            }
+        }
+
+    });
+
+    var Bob = Human.New({ FirstName : 'Bob', LastName : 'Morane' });
+    var Sam = Human.New({ FirstName : 'Sam', LastName : 'LePirate' });
+
+    var SuperHero = Species.Class({
+        Extends : Human,
+        initialize : function _SuperHero (args) {
+
+            SuperHero.parent.initialize.call(this,args);
+        }
+    });
+
+
+    var Clark = SuperHero.New({ FirstName : 'Clark', LastName : 'Kent' });
+    var Bruce = SuperHero.New({ FirstName : 'Bruce', LastName : 'Wayne' });
+
+    var Alien = Species.Class({
+        Extends : SuperHero,
+        initialize : function _Alien (args) {
+            Alien.parent.initialize.call(this,args);
+        }
+    });
+
+    var Et = Alien.New({ FirstName: 'Extra', LastName: 'Terrestrial' });
+    var Half = Alien.New({ FirstName: 'Half', LastName: 'Half' });
+
+</script>
+<script>
+    console.code('properties');
+</script>
+</html>

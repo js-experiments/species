@@ -73,20 +73,20 @@ Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
 
 ##Typing your classes
 
-it's possible if you use named function with the constructor :
+it's possible if you use named function with the constructor : always prefix name with `_`
 
 ###Usage
 
     var human = Class({
         name : "",
-        initialize : function human(n){
+        initialize : function _human(n){
             this.name = n;
         }
     });
 
     var animal = Class({
         name : "",
-        initialize : function animal(n){
+        initialize : function _animal(n){
             this.name = n;
         }
     });
@@ -108,7 +108,56 @@ it's possible if you use named function with the constructor :
 - `human.isInstance` is equals to `false`
 - `animal.isInstance` is equals to `false`
 
+##Properties
 
+    var Human = Species.Class({
+        _firstName : "",
+        _lastName : "",
+        _age : 0,
+
+        FirstName : {
+            get : function () {
+                console.log('get FirstName : ' + this._firstName);
+                return this._firstName;
+            },
+            set : function (value) {
+                console.log('set FirstName : ' + value);
+                this._firstName = value;
+            }
+        },
+
+        LastName : {
+            get : function () {
+                console.log('get LastName : ' + this._lastName);
+                return this._lastName;
+            },
+            set : function (value) {
+                console.log('set LastName : ' + value);
+                this._lastName = value;
+            }
+        },
+
+        Age : {
+            get : function () {
+                console.log('get Age : ' + this._age);
+                return this._age;
+            }
+        },
+
+        AddYears : function(y) { this._age += y; },
+
+        initialize : function _Human (args) {
+            Human.parent.initialize(this);
+            var m;
+            for(m in args) {
+                this[m] = args[m];
+            }
+        }
+
+    });
+
+    var Bob = Human.New({ FirstName : 'Bob', LastName : 'Morane' });
+    var Sam = Human.New({ FirstName : 'Sam', LastName : 'LePirate' });
 
 ##Patterns
 

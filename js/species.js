@@ -18,18 +18,30 @@ var Species = (function () {
             k = Object.create({});
         }
 
+        /*--- define members ---*/
         for(m in class_def) {
-            Object.defineProperty(k, m,{
-                value : class_def[m],
-                writable: true,
-                enumerable: true,
-                configurable: true
-            });
+
+            if(class_def[m].get || class_def[m].set) {//Property
+                Object.defineProperty(k, m,{
+                    get : class_def[m].get ? class_def[m].get : undefined,
+                    set : class_def[m].set ? class_def[m].set : undefined,
+                    enumerable: true,
+                    configurable: true
+                });
+
+            } else {
+                Object.defineProperty(k, m,{
+                    value : class_def[m],
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                });
+            }
         }
 
         /*--- if initialize is named ---*/
         Object.defineProperty(k, "typeName",{
-            value : class_def["initialize"] ? class_def["initialize"].name : null,
+            value : class_def["initialize"] ? class_def["initialize"].name.replace('_','') : null,
             writable: false,
             enumerable: true,
             configurable: false
