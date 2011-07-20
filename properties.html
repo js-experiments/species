@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC>
 <html>
 <head>
-    <title>Singleton</title>
+    <title>Properties</title>
 </head>
 <body>
 </body>
@@ -54,7 +54,7 @@
         AddYears : function(y) { this._age += y; },
 
         initialize : function _Human (args) {
-            Human.parent.initialize(this);
+            Human.parent.initialize.call(this,args);
             var m;
             for(m in args) {
                 this[m] = args[m];
@@ -87,6 +87,8 @@
 
     var Et = Alien.New({ FirstName: 'Extra', LastName: 'Terrestrial' });
     var Half = Alien.New({ FirstName: 'Half', LastName: 'Half' });
+
+    Half.LastName = 'HALFFFFFF';
 
 </script>
 <script>
