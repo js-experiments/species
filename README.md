@@ -161,10 +161,10 @@ it's possible if you use named function with the constructor : always prefix nam
 
 ##Patterns
 
-- Singleton : [http://jsfiddle.net/k33g_org/3THyk/](http://jsfiddle.net/k33g_org/3THyk/)
+- Singleton : [http://jsfiddle.net/k33g_org/3THyk/1/](http://jsfiddle.net/k33g_org/3THyk/1/)
 - Factory : [http://jsfiddle.net/k33g_org/Uvkp7/1/](http://jsfiddle.net/k33g_org/Uvkp7/1/)
-- Proxy : [http://jsfiddle.net/k33g_org/ntEG5/](http://jsfiddle.net/k33g_org/ntEG5/)
-- Decorator : [http://jsfiddle.net/k33g_org/NAsBv/](http://jsfiddle.net/k33g_org/NAsBv/)
+- Proxy : [http://jsfiddle.net/k33g_org/ntEG5/1/](http://jsfiddle.net/k33g_org/ntEG5/1/)
+- Decorator : [http://jsfiddle.net/k33g_org/NAsBv/1/](http://jsfiddle.net/k33g_org/NAsBv/1/)
 
 - - -
 
