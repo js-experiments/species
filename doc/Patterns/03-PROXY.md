@@ -14,7 +14,7 @@
     });
 
     var HumanProxy = Species.Class({
-        human : null,
+        human : {},
         walking : function(){
             console.log('before walking ...');
             this.human.walking();

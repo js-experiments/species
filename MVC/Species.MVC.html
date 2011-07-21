@@ -7,6 +7,7 @@
     <script src="vendors/underscore-min.js"></script>
     <script src="../js/species.min.js"></script>
     <script src="../js/plugins/species.aop.js"></script>
+    <script src="../js/plugins/species.watch.js"></script>
     <script src="species.model.js"></script>
     <script src="species.controller.js"></script>
 </head>
@@ -22,113 +23,130 @@
 
 </body>
 
-<script src="console.js"></script>
+<!--<script src="console.js"></script>-->
 <script>
     console.log('<b>/*--- Species MVC ---*/</b>');
 </script>
 <script id="Species_MVC">
-(function () {
-    var Customer = Species.Class({
+    (function () {
+        var Customer = Species.Class({
+            Extends : Species.Model,
+
+            Name : {
+                get : function() { return this.name; },
+                set : function(value) { this.name = value; }
+            },
+
+            Budget : {
+                get : function() { return this.budget; },
+                set : function(value) { this.budget = value; }
+            },
+
+            initialize : function _Customer(id, name, budget){
+                console.log(this.UID);
+                this.name = name;
+                this.id = id;
+                this.budget  = budget;
+            }
+        });
+
+        var Customers = Species.Class({
+            Extends : Species.ModelHelper,
+
+            initialize : function _CustomerHelper() {
+                this.Model = Customer;
+            }
+        });
+
+
+        var CustomerController = Species.Class({
+            Extends : Species.Controller,
+
+
+            populate : function() {
+                var toto = Customer.New("001", "TOTO", 45000);
+                var tutu = Customer.New("002", "TUTU", 3000);
+                var tata = this.customers.clone(tutu);
+                tata.Id = "003";
+                tata.Name = "TATA";
+
+                //this.customers.add([toto, tutu, tata]);
+                this.customers.add(toto);
+                this.customers.add(tutu);
+                this.customers.add(tata);
+
+                this.customers.save(toto);
+                this.customers.save(tutu);
+                this.customers.save(tata);
+
+                this.customers.each(function(e) {
+                    $("#customersList").append("<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>");
+                });
+                /*this.customers.getAll().forEach(function(e) { console.log( e.Id, e.Name, e.Budget); } );*/
+            },
+
+            initialize : function _CustomerController() {
+                var that = this;
+                this.customers = Customers.New(),
+
+                this.customers.bind({
+                    method : "add",
+                    before : function(data){ console.log("BEFORE ADD : " + data.Name); } ,
+                    after : function(data){ console.log("AFTER ADD : " + data.Name); }
+                });
+
+                this.customers.bind({
+                    method : "save",
+                    after : function(data){ console.log(data.UID + " : " + data.Name + " ("+ data.Id +") SAVED"); }
+                })
+
+                this.View = $('#customersView'); /* pour le moment pas utilisée */
+                this.Events = [
+                    {
+                        element : '#cmd01',
+                        event : 'click',
+                        onEvent : function(){
+                            $('result').html(that.customers.find(function(e) { return e.Budget === 3000; } ).Name);
+                        }
+                    },
+                    {
+                        element : '#cmd02',
+                        event : 'click',
+                        onEvent : function(){
+                            $('result').html('');
+
+                            that.customers.filter(function(e) {
+                                return e.Budget === 3000;
+                            } ).forEach(function(e){
+                                        $('result').html(e.Name + ' - ' + $('result').html());
+                                    });
+                        }
+                    }
+                ];
+
+                this.populate();
+            }
+        });
+
+        var control = CustomerController.New();
+    }());
+
+    var Supplier = Species.Class({
         Extends : Species.Model,
+        /*--- default values ---*/
+        Name : "John Doe",
+        Code : "???",
 
-        Name : {
-            get : function() { return this.name; },
-            set : function(value) { this.name = value; }
-        },
-
-        Budget : {
-            get : function() { return this.budget; },
-            set : function(value) { this.budget = value; }
-        },
-
-        initialize : function _Customer(id, name, budget){
-            console.log(this.UID);
-            this.name = name;
-            this.id = id;
-            this.budget  = budget;
+        initialize : function _Supplier(args) {
+            args.Name ? this.Name = args.Name : null;
+            args.Code ? this.Code = args.Code : null;
         }
     });
 
-    var Customers = Species.Class({
-        Extends : Species.ModelHelper,
+    var Bob = Supplier.New({ Name : 'Bob Morane', Code : '12345' });
+    Bob.watch('Name', function(result){ console.log('Name has changed',result); });
+    Bob.watch('Code', function(result){ console.log('Code has changed',result); });
 
-        initialize : function _CustomerHelper() {
-            this.Model = Customer;
-        }
-    });
-
-
-    var CustomerController = Species.Class({
-        Extends : Species.Controller,
-
-
-        populate : function() {
-            var toto = Customer.New("001", "TOTO", 45000);
-            var tutu = Customer.New("002", "TUTU", 3000);
-            var tata = this.customers.clone(tutu);
-            tata.Id = "003";
-            tata.Name = "TATA";
-
-            //this.customers.add([toto, tutu, tata]);
-            this.customers.add(toto);
-            this.customers.add(tutu);
-            this.customers.add(tata);
-
-            this.customers.save(toto);
-            this.customers.save(tutu);
-            this.customers.save(tata);
-                                    
-            this.customers.each(function(e) {
-                $("#customersList").append("<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>");
-            });
-            /*this.customers.getAll().forEach(function(e) { console.log( e.Id, e.Name, e.Budget); } );*/
-        },
-
-        initialize : function _CustomerController() {
-            var that = this;
-            this.customers = Customers.New(),
-
-            this.customers.bind({
-                method : "add",
-                before : function(data){ console.log("BEFORE ADD : " + data.Name); } ,
-                after : function(data){ console.log("AFTER ADD : " + data.Name); }
-            });
-
-            this.customers.bind({
-                method : "save",
-                after : function(data){ console.log(data.UID + " : " + data.Name + " ("+ data.Id +") SAVED"); }
-            })
-
-            this.View = $('#customersView'); /* pour le moment pas utilisée */
-            this.Events = [
-                {
-                    element : '#cmd01',
-                    event : 'click',
-                    onEvent : function(){
-                        $('result').html(that.customers.find(function(e) { return e.Budget === 3000; } ).Name);
-                    }
-                },
-                {
-                    element : '#cmd02', 
-                    event : 'click',
-                    onEvent : function(){
-                        $('result').html('');
-
-                        that.customers.filter(function(e) {
-                            return e.Budget === 3000;
-                        } ).forEach(function(e){
-                                    $('result').html(e.Name + ' - ' + $('result').html());
-                                });
-                    }
-                }
-            ];
-
-            this.populate();
-        }
-    });
-
-    var control = CustomerController.New();
-}());
 </script>
 
 </html>

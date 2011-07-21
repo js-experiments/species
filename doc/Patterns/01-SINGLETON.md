@@ -2,7 +2,7 @@
 
     var Singleton = Species.Class({
         instantiated : false,
-        instance : null,
+        instance : {},
         name : '',
 
         getInstance : function(name) {
