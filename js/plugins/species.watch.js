@@ -24,5 +24,7 @@ var Species = (function (species) {
         this[propertyName] = value;
     };
 
+    //Species.watch ??? instead of Object.watch ???
+
     return species;
 }(Species));

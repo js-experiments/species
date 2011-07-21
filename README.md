@@ -2,6 +2,7 @@
 
 ##JS Class structure, Java style OOP
 
+**Only for Webkit**
 
 Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
 
@@ -166,6 +167,79 @@ it's possible if you use named function with the constructor : always prefix nam
 - Proxy : [http://jsfiddle.net/k33g_org/ntEG5/1/](http://jsfiddle.net/k33g_org/ntEG5/1/)
 - Decorator : [http://jsfiddle.net/k33g_org/NAsBv/1/](http://jsfiddle.net/k33g_org/NAsBv/1/)
 
+##PlugIns
+
+###AOP
+
+You can decorate methods of a class or an instance of class with functions (before and after) :
+You need to declare species.aop.js
+
+    var Human = Species.Class({
+        Name : 'John Doe',
+        walk : function() {
+            console.log(this.Name + ' is walking');
+        },
+        initialize : function _Human(name) {
+            if(name) this.Name = name;
+        }
+    });
+
+    Species.aop.before(Human, 'walk', function() { console.log(this.Name + ' starts walking'); })
+
+    var Bob = Human.New();
+    Bob.walk();
+
+    var Sam = Human.New('Sam');
+    Species.aop.after(Sam, 'walk', function() { console.log(this.Name + ' stops walking'); })
+
+    Sam.walk();
+
+    /*
+        John Doe starts walking
+        John Doe is walking
+        Sam starts walking
+        Sam is walking
+        Sam stops walking
+    */
+
+
+###Watch
+
+You can "watch" changes of value member of an instance of a class (for all instances or only some instances) (not properties only simple types) :
+You need to declare species.watch.js
+
+    var Human = Species.Class({
+        Name : 'John Doe',
+        walk : function() {
+            console.log(this.Name + ' is walking');
+        },
+        initialize : function _Human(name) {
+            if(name) this.Name = name;
+        }
+    });
+
+    Human.watch('Name', function(result) {
+        console.log( 'Property : ' + result.propertyName + ' Old : ' + result.oldValue + ' New : ' + result.newValue);
+    });
+
+    var Bob = Human.New();
+
+    Bob.Name = 'Bob Morane';
+
+    var Sam = Human.New('Sam');
+
+    Sam.watch('Name', function(result) {
+        console.log( 'Only for Sam : Property : ' + result.propertyName + ' Old : ' + result.oldValue + ' New : ' + result.newValue);
+    });
+    Sam.Name = 'Sammy'
+
+    /*
+        Property : Name Old : John Doe New : Bob Morane
+        Property : Name Old : John Doe New : Sam
+        Only for Sam : Property : Name Old : Sam New : Sammy
+    */
+
+
 - - -
 
     http://closure-compiler.appspot.com/home
@@ -173,14 +247,14 @@ it's possible if you use named function with the constructor : always prefix nam
     // ==ClosureCompiler==
     // @compilation_level SIMPLE_OPTIMIZATIONS
     // @output_file_name species.min.js
-    // @code_url http://dl.dropbox.com/u/21154141/species/js/species.js
+    // @code_url https://raw.github.com/k33g/species/master/js/species.js
     // ==/ClosureCompiler==
 
     // ==ClosureCompiler==
     // @compilation_level SIMPLE_OPTIMIZATIONS
-    // @output_file_name species.min.js
+    // @output_file_name species.all.min.js
     // @code_url https://raw.github.com/k33g/species/master/js/species.js
+    // @code_url https://raw.github.com/k33g/species/master/js/plugins/species.aop.js
+    // @code_url https://raw.github.com/k33g/species/master/js/plugins/species.watch.js
     // ==/ClosureCompiler==
-
-
 - - -

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+    <title>Watch</title>
+</head>
+<body>
+</body>
+<script src="console.js"></script>
+<script src="../js/species.js"></script>
+<script src="../js/plugins/species.watch.js"></script>
+<script>
+    console.log('<b>/*--- watch ---*/</b>');
+</script>
+<script id='watch'>
+
+    var Human = Species.Class({
+        Name : 'John Doe',
+        walk : function() {
+            console.log(this.Name + ' is walking');
+        },
+        initialize : function _Human(name) {
+            if(name) this.Name = name;
+        }
+    });
+
+    Human.watch('Name', function(result) {
+        console.log( 'Property : ' + result.propertyName + ' Old : ' + result.oldValue + ' New : ' + result.newValue);
+    });
+
+    var Bob = Human.New();
+
+    Bob.Name = 'Bob Morane';
+
+    var Sam = Human.New('Sam');
+
+    Sam.watch('Name', function(result) {
+        console.log( 'Only for Sam : Property : ' + result.propertyName + ' Old : ' + result.oldValue + ' New : ' + result.newValue);
+    });
+    Sam.Name = 'Sammy'
+
+</script>
+<script>
+    console.code('watch');
+</script>
+</html>

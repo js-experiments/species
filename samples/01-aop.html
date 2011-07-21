@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+    <title>AOP</title>
+</head>
+<body>
+</body>
+<script src="console.js"></script>
+<script src="../js/species.js"></script>
+<script src="../js/plugins/species.aop.js"></script>
+<script>
+    console.log('<b>/*--- aop ---*/</b>');
+</script>
+<script id='aop'>
+
+    var Human = Species.Class({
+        Name : 'John Doe',
+        walk : function() {
+            console.log(this.Name + ' is walking');
+        },
+        initialize : function _Human(name) {
+            if(name) this.Name = name;
+        }
+    });
+
+    Species.aop.before(Human, 'walk', function() { console.log(this.Name + ' starts walking'); })
+
+    var Bob = Human.New();
+    Bob.walk();
+
+    var Sam = Human.New('Sam');
+    Species.aop.after(Sam, 'walk', function() { console.log(this.Name + ' stops walking'); })
+
+    Sam.walk();
+
+
+</script>
+<script>
+    console.code('aop');
+</script>
+</html>
