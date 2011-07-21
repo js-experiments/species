@@ -14,7 +14,7 @@ console.code = function(idScript) {
     document.body.appendChild(s);
 
 };
-
+document.body.appendChild(document.createElement('hr'));
 var c = document.createElement('div');
 c.setAttribute('id','console');
 c.style['color'] = 'white';
@@ -22,4 +22,5 @@ c.style['background'] = 'black';
 c.style['font-family'] = 'monospace';
 
 document.body.appendChild(c);
+document.body.appendChild(document.createElement('hr'));
 
