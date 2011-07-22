@@ -2,6 +2,9 @@
     http://documentcloud.github.com/backbone/
  */
 
+/* dependencies : underscore */
+
+
 var Species = (function (species) {
 
     species.Model = Species.Class({
@@ -106,6 +109,10 @@ var Species = (function (species) {
         unBind : function(methodeNameToUnBind) {
             /*TODO*/
         }
+
+
+
+
 
     });
 

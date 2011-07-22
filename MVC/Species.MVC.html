@@ -5,16 +5,21 @@
 
     <script src="vendors/zepto.min.js"></script>
     <script src="vendors/underscore-min.js"></script>
+    <script src="vendors/mustache.js"></script>
     <script src="../js/species.all.min.js"></script>
     <script src="species.model.js"></script>
     <script src="species.controller.js"></script>
 </head>
 <body>
 
+    <script type="text/html" id="customersListTemplate">
+        <ul> {{#items}}<li> {{Id}} {{Name}} {{Budget}} ({{UID}})</li>{{/items}} </ul>
+    </script>
+
     <div id="customersView">
         <button id="cmd01">Le 1er client avec un budget de 3000</button>
         <button id="cmd02">Les clients avec un budget de 3000</button>
-        <ul id="customersList"></ul>
+        <customers_list></customers_list>
         <result></result>
     </div>
 
@@ -77,9 +82,15 @@
                 this.customers.save(tutu);
                 this.customers.save(tata);
 
-                this.customers.each(function(e) {
-                    $("#customersList").append("<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>");
+                this.render({
+                    data : { items : this.customers.getAll() },
+                    template : '#customersListTemplate',
+                    to : 'customers_list'
                 });
+
+                /*this.customers.each(function(e) {
+                    $("#customersList").append("<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>");
+                });*/
                 /*this.customers.getAll().forEach(function(e) { console.log( e.Id, e.Name, e.Budget); } );*/
             },
 

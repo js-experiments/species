@@ -2,6 +2,8 @@
     http://documentcloud.github.com/backbone/
  */
 
+/* dependencies : zepto  + mustache */
+
 var Species = (function (species) {
 
     species.Controller = Species.Class({
@@ -21,10 +23,20 @@ var Species = (function (species) {
             }
         },
 
-        /*
-                {element : '#cmd01', event : 'click', onEvent : console.log('Afficher la liste')},
-                {element : '#cmd02', event : 'click', onEvent : console.log('Cacher la liste')}
-         */
+        render : function(args) {
+            var template = $(args.template);
+            var partElement = $(args.to);
+            partElement.html(Mustache.to_html(template.text(), args.data));
+        },
+
+        listenChanges : function(model, cllbk, linkToView) {
+            /*
+                model : Model
+                cllbk : function
+                linkToView : boolean (cf. Controller.view)
+            */
+            //TODO: ne pas oublier la vue
+        },
 
         /* childs have to always override the constructor and named it with _<name of class>*/
         initialize : function _Controller(){
