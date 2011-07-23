@@ -6,11 +6,6 @@ var Species = (function (species) {
 
     species.Renderer = Species.Class({
 
-        Engine : {
-            get : function() { return this.engine; },
-            set : function(value) { this.engine = value; }
-        },
-
         ToHTML : {
             get : function() { return this.toHTML; },
             set : function(value) { this.toHTML = value ; }
@@ -46,8 +41,7 @@ var Species = (function (species) {
         render : function(args) {
             var template = species.dom.find(args.template);
             var partElement = species.dom.find(args.to);
-            //partElement.innerHTML = Mustache.to_html(template.innerText, args.data);
-            partElement.innerHTML = species.Renderer.Engine[species.Renderer.ToHTML](template.innerText, args.data);
+            partElement.innerHTML = species.Renderer.ToHTML(template.innerText, args.data);
         },
 
         listenChanges : function(model, cllbk, linkToView) {

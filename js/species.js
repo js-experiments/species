@@ -50,9 +50,9 @@ var Species = (function () {
         /*--- isInstance ---*/
         Object.defineProperty(k, "isInstance",{
             value : false,
-            writable: false,
+            writable: true,
             enumerable: true,
-            configurable: false
+            configurable: true
         });
 
         /*--- isInstanceOf ---*/

@@ -3,8 +3,9 @@
 <head>
     <title>Species MVC</title>
 
-    <script src="vendors/mustache.js"></script>
-    <script src="../js/species.all.min.js"></script>
+    <script src="../js/species.js"></script>
+    <script src="../js/plugins/species.aop.js"></script>
+    <script src="../js/plugins/species.watch.js"></script>
     <script src="species.dom.js"></script>
     <script src="species.model.js"></script>
     <script src="species.controller.js"></script>
@@ -19,6 +20,7 @@
         <button id="cmd01">Le 1er client avec un budget de 3000</button>
         <button id="cmd02">Les clients avec un budget de 3000</button>
         <customers_list></customers_list>
+        <customers_list_bis></customers_list_bis>
         <result></result>
     </div>
 
@@ -30,13 +32,35 @@
     console.log('<b>/*--- Species MVC ---*/</b>');
 </script>
 <script id="Species_MVC">
+
+
+    var Supplier = Species.Class({
+        Extends : Species.Model,
+        /*--- default values ---*/
+        Name : "John Doe",
+        Code : "???",
+
+        initialize : function _Supplier(args) {
+            args.Name ? this.Name = args.Name : null;
+            args.Code ? this.Code = args.Code : null;
+        }
+    });
+
+    var Bob = Supplier.New({ Name : 'Bob Morane', Code : '12345' });
+
+
+
+    Bob.watch('Name', function(result){ console.log('Name has changed',result); });
+    Bob.watch('Code', function(result){ console.log('Code has changed',result); });
+
+
+
     (function () {
         /*--- declare template ---*/
-        Species.Renderer.Engine = Mustache;
-        Species.Renderer.ToHTML = 'to_html';
-        /*
-            Mustache.to_html(template,data)
-         */
+        Species.Renderer.ToHTML = function(a,b) {
+            console.log(a, b);
+            return '---------------------------';
+        };
 
         var Customer = Species.Class({
             Extends : Species.Model,
@@ -90,8 +114,14 @@
                 this.render({
                     data : { items : this.customers.getAll() },
                     template : '#customersListTemplate',
-                    to : 'customers_list'
+                    to : 'customers_list_bis'
                 });
+
+                var html = '<ul>'
+                this.customers.getAll().forEach(function(e) { html += "<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>" } );
+                html += '</ul>'
+
+                $dom('customers_list').prop({ innerHTML : html })
 
                 /*this.customers.each(function(e) {
                     $("#customersList").append("<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>");
@@ -146,24 +176,7 @@
         var control = CustomerController.New();
     }());
 
-    var Supplier = Species.Class({
-        Extends : Species.Model,
-        /*--- default values ---*/
-        Name : "John Doe",
-        Code : "???",
 
-        initialize : function _Supplier(args) {
-            args.Name ? this.Name = args.Name : null;
-            args.Code ? this.Code = args.Code : null;
-        }
-    });
-
-    var Bob = Supplier.New({ Name : 'Bob Morane', Code : '12345' });
-
-
-
-    Bob.watch('Name', function(result){ console.log('Name has changed',result); });
-    Bob.watch('Code', function(result){ console.log('Code has changed',result); });
 
 </script>
 

@@ -49,20 +49,6 @@ var Species = (function (species) {
         }
     };
 
-    /*
-    species.dom.css = function() {
-        var args = arguments;
-        if(this.elements.length > 0 && args.length > 0) {
-            if(args.length > 1) {
-                this.elements.forEach(function(elt) { elt.setAttribute(args[0], args[1]);  });
-                return this;
-            } else {
-                return this.elements[0].getAttribute(args[0]);
-            }
-        } else { return null; }
-    };
-    */
-
     species.dom.findAll = function(selector){ return [].slice.apply(document.querySelectorAll(selector)); };
     species.dom.find = function(selector){ return document.querySelector(selector) };
 
