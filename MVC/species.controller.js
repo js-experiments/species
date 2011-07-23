@@ -8,7 +8,7 @@ var Species = (function (species) {
 
     species.Controller = Species.Class({
 
-        View : { /*zepto element*/
+        View : { /*dom element*/
             get : function() { console.log('get view'); return this.view; },
             set : function(value) { console.log('set view'); this.view = value; }
         },
@@ -18,11 +18,17 @@ var Species = (function (species) {
             set : function(eventsList) {
                 var i;
                 for(i=0; i<eventsList.length; i++){
-                    $(eventsList[i].element).bind(eventsList[i].event, eventsList[i].onEvent);
+
+                    species.dom.findAll(eventsList[i].what).forEach(
+                        function(element) {
+                            element.addEventListener(eventsList[i].event, eventsList[i].onEvent, false);
+                        }
+                    );
                 }
             }
         },
 
+        
         render : function(args) {
             var template = $(args.template);
             var partElement = $(args.to);

@@ -6,6 +6,7 @@
     <script src="vendors/zepto.min.js"></script>
     <script src="vendors/mustache.js"></script>
     <script src="../js/species.all.min.js"></script>
+    <script src="species.dom.js"></script>
     <script src="species.model.js"></script>
     <script src="species.controller.js"></script>
 </head>
@@ -111,14 +112,14 @@
                 this.View = $('#customersView'); /* pour le moment pas utilisée */
                 this.Events = [
                     {
-                        element : '#cmd01',
+                        what : '#cmd01',
                         event : 'click',
                         onEvent : function(){
                             $('result').html(that.customers.getAll().filter(function(e) { return e.Budget === 3000; } )[0].Name);
                         }
                     },
                     {
-                        element : '#cmd02',
+                        what : '#cmd02',
                         event : 'click',
                         onEvent : function(){
                             $('result').html('');
