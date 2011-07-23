@@ -4,7 +4,6 @@
     <title>Species MVC</title>
 
     <script src="vendors/zepto.min.js"></script>
-    <script src="vendors/underscore-min.js"></script>
     <script src="vendors/mustache.js"></script>
     <script src="../js/species.all.min.js"></script>
     <script src="species.model.js"></script>
@@ -115,7 +114,7 @@
                         element : '#cmd01',
                         event : 'click',
                         onEvent : function(){
-                            $('result').html(that.customers.find(function(e) { return e.Budget === 3000; } ).Name);
+                            $('result').html(that.customers.getAll().filter(function(e) { return e.Budget === 3000; } )[0].Name);
                         }
                     },
                     {
@@ -124,7 +123,7 @@
                         onEvent : function(){
                             $('result').html('');
 
-                            that.customers.filter(function(e) {
+                            that.customers.getAll().filter(function(e) {
                                 return e.Budget === 3000;
                             } ).forEach(function(e){
                                         $('result').html(e.Name + ' - ' + $('result').html());

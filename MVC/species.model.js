@@ -32,9 +32,11 @@ var Species = (function (species) {
         }
     });
 
+    //TODO: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array
+
     species.ModelHelper = Species.Class({
 
-        Models : {},
+        Models : {}, __Models : [],
 
         Model : {
             get : function() { return this.model; },
@@ -59,18 +61,8 @@ var Species = (function (species) {
             return tmpo;
         },
 
-        getAll : function() { return _.toArray(this.Models); },
-
-        each : function(cll, cbk) {
-            _.toArray(this.Models).forEach(cll);
-        },
-
-        find : function(cll) {
-            return _.detect(_.toArray(this.Models), cll);
-        },
-
-        filter : function(cll) {
-            return _.select(_.toArray(this.Models), cll);
+        getAll : function() {
+            return this.__Models;
         },
 
         get : function(id) { return this.Models[id]; },
@@ -82,6 +74,7 @@ var Species = (function (species) {
                     if(model[i].isInstanceOf(this.Model)){
                         //this.Models.push({ Id : model[i].Id, Model : model[i]});
                         this.Models[model[i].Id] = model[i];
+                        this.__Models.push(model[i]);
                     } else {
                         throw "Error : add " + model[i].typeName + " instead of " + this.Model.typeName;
                     }
@@ -90,6 +83,7 @@ var Species = (function (species) {
                 if(model.isInstanceOf(this.Model)){
                     //this.Models.push({ Id : model.Id, Model : model});
                     this.Models[model.Id] = model;
+                    this.__Models.push(model);
                 } else {
                     throw "Error : add " + model.typeName + " instead of " + this.Model.typeName;
                 }

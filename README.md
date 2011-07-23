@@ -242,19 +242,19 @@ You need to declare species.watch.js
 
 - - -
 
-    http://closure-compiler.appspot.com/home
+http://closure-compiler.appspot.com/home
 
-    // ==ClosureCompiler==
-    // @compilation_level SIMPLE_OPTIMIZATIONS
-    // @output_file_name species.min.js
-    // @code_url https://raw.github.com/k33g/species/master/js/species.js
-    // ==/ClosureCompiler==
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name species.min.js
+// @code_url https://raw.github.com/k33g/species/master/js/species.js
+// ==/ClosureCompiler==
 
-    // ==ClosureCompiler==
-    // @compilation_level SIMPLE_OPTIMIZATIONS
-    // @output_file_name species.all.min.js
-    // @code_url https://raw.github.com/k33g/species/master/js/species.js
-    // @code_url https://raw.github.com/k33g/species/master/js/plugins/species.aop.js
-    // @code_url https://raw.github.com/k33g/species/master/js/plugins/species.watch.js
-    // ==/ClosureCompiler==
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name species.all.min.js
+// @code_url https://raw.github.com/k33g/species/master/js/species.js
+// @code_url https://raw.github.com/k33g/species/master/js/plugins/species.aop.js
+// @code_url https://raw.github.com/k33g/species/master/js/plugins/species.watch.js
+// ==/ClosureCompiler==
 - - -
