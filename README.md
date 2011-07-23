@@ -2,7 +2,7 @@
 
 ##JS Class structure, Java style OOP
 
-**Only for Webkit**
+**Only for Webkit and FF** *(IE9 ?)*
 
 Demo : [http://jsfiddle.net/rZNfM/4/](http://jsfiddle.net/rZNfM/4/)
 
