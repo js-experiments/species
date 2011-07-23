@@ -1,9 +1,3 @@
-/*
-    http://documentcloud.github.com/backbone/
- */
-
-/* dependencies : underscore */
-
 
 var Species = (function (species) {
 
@@ -90,7 +84,6 @@ var Species = (function (species) {
             }
         },
 
-
         /*TODO : remove ???*/
 
         _oldMethods : {},
@@ -103,10 +96,6 @@ var Species = (function (species) {
         unBind : function(methodeNameToUnBind) {
             /*TODO*/
         }
-
-
-
-
 
     });
 
