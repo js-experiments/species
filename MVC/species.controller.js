@@ -1,10 +1,23 @@
-/*
-    http://documentcloud.github.com/backbone/
- */
 
-/* dependencies : zepto  + mustache */
+
+/* dependencies : species.dom.js */
 
 var Species = (function (species) {
+
+    species.Renderer = Species.Class({
+
+        Engine : {
+            get : function() { return this.engine; },
+            set : function(value) { this.engine = value; }
+        },
+
+        ToHTML : {
+            get : function() { return this.toHTML; },
+            set : function(value) { this.toHTML = value ; }
+        }
+
+    });
+
 
     species.Controller = Species.Class({
 
@@ -13,12 +26,13 @@ var Species = (function (species) {
             set : function(value) { console.log('set view'); this.view = value; }
         },
 
+
+
         Events : {
             //get : function() {  },
             set : function(eventsList) {
                 var i;
                 for(i=0; i<eventsList.length; i++){
-
                     species.dom.findAll(eventsList[i].what).forEach(
                         function(element) {
                             element.addEventListener(eventsList[i].event, eventsList[i].onEvent, false);
@@ -30,9 +44,10 @@ var Species = (function (species) {
 
         
         render : function(args) {
-            var template = $(args.template);
-            var partElement = $(args.to);
-            partElement.html(Mustache.to_html(template.text(), args.data));
+            var template = species.dom.find(args.template);
+            var partElement = species.dom.find(args.to);
+            //partElement.innerHTML = Mustache.to_html(template.innerText, args.data);
+            partElement.innerHTML = species.Renderer.Engine[species.Renderer.ToHTML](template.innerText, args.data);
         },
 
         listenChanges : function(model, cllbk, linkToView) {

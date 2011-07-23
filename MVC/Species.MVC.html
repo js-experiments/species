@@ -3,7 +3,6 @@
 <head>
     <title>Species MVC</title>
 
-    <script src="vendors/zepto.min.js"></script>
     <script src="vendors/mustache.js"></script>
     <script src="../js/species.all.min.js"></script>
     <script src="species.dom.js"></script>
@@ -32,6 +31,13 @@
 </script>
 <script id="Species_MVC">
     (function () {
+        /*--- declare template ---*/
+        Species.Renderer.Engine = Mustache;
+        Species.Renderer.ToHTML = 'to_html';
+        /*
+            Mustache.to_html(template,data)
+         */
+
         var Customer = Species.Class({
             Extends : Species.Model,
 
@@ -65,7 +71,6 @@
         var CustomerController = Species.Class({
             Extends : Species.Controller,
 
-
             populate : function() {
                 var toto = Customer.New("001", "TOTO", 45000);
                 var tutu = Customer.New("002", "TUTU", 3000);
@@ -96,6 +101,7 @@
 
             initialize : function _CustomerController() {
                 var that = this;
+
                 this.customers = Customers.New(),
 
                 this.customers.bind({
@@ -109,25 +115,25 @@
                     after : function(data){ console.log(data.UID + " : " + data.Name + " ("+ data.Id +") SAVED"); }
                 })
 
-                this.View = $('#customersView'); /* pour le moment pas utilisée */
+                this.View = $dom.find('#customersView'); /* pour le moment pas utilisée */
                 this.Events = [
                     {
                         what : '#cmd01',
                         event : 'click',
                         onEvent : function(){
-                            $('result').html(that.customers.getAll().filter(function(e) { return e.Budget === 3000; } )[0].Name);
+                            $dom.find('result').innerHTML = that.customers.getAll().filter(function(e) { return e.Budget === 3000; } )[0].Name;
                         }
                     },
                     {
                         what : '#cmd02',
                         event : 'click',
                         onEvent : function(){
-                            $('result').html('');
+                            $dom.find('result').innerHTML = '';
 
                             that.customers.getAll().filter(function(e) {
                                 return e.Budget === 3000;
                             } ).forEach(function(e){
-                                        $('result').html(e.Name + ' - ' + $('result').html());
+                                        $dom.find('result').innerHTML += e.Name + ' - ' ;
                                     });
                         }
                     }
