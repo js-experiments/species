@@ -159,6 +159,9 @@
     });
 
     var Bob = Supplier.New({ Name : 'Bob Morane', Code : '12345' });
+
+
+
     Bob.watch('Name', function(result){ console.log('Name has changed',result); });
     Bob.watch('Code', function(result){ console.log('Code has changed',result); });
 

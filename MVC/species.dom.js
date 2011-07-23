@@ -7,7 +7,6 @@ var Species = (function (species) {
             elements : [].slice.apply(document.querySelectorAll(selector)),
             prop : species.dom.prop,
             attr : species.dom.attr
-            //attr :
         }
     };
     /*
@@ -23,7 +22,9 @@ var Species = (function (species) {
             return this.elements.length > 0 ? this.elements[0][args] : null;
         } else {
             this.elements.forEach(function(elt) {
-                for(m in args) { elt[m] = args[m]; }
+                for(m in args) {
+                    if (args.hasOwnProperty(m)) { elt[m] = args[m] };
+                }
             });
             return this;
         }
@@ -31,6 +32,8 @@ var Species = (function (species) {
 
     /*
         $dom('#cmd02').attr({name:'CMD02', 'data-info' : 'hello'})
+        $dom('#cmd02').attr({style:'font-size:200%; color : red'})
+        $dom('#cmd02').attr('style')
     */
     species.dom.attr = function(args) {
         var m;
@@ -38,11 +41,12 @@ var Species = (function (species) {
             return this.elements.length > 0 ? this.elements[0].getAttribute(args) : null;
         } else {
             this.elements.forEach(function(elt) {
-                for(m in args) { elt.setAttribute(m, args[m]); }
+                for(m in args) {
+                    if (args.hasOwnProperty(m)) { elt.setAttribute(m, args[m]); }
+                }
             });
             return this;
         }
-
     };
 
     /*
