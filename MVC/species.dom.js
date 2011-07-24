@@ -50,7 +50,7 @@ var Species = (function (species) {
             },
             findAll : function() { return this.elements; },
             find : function() { return this.elements[0]; },
-
+            
             first : function() { this.elements = [this.elements[0]]; return this; },
             last : function() { this.elements = [this.elements[this.elements.length-1]]; return this; },
             select : function(n) { this.elements = [this.elements[n]]; return this; },
