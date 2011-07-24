@@ -125,7 +125,7 @@
                     after : function(data){ console.log(data.UID + " : " + data.Name + " ("+ data.Id +") SAVED"); }
                 })
 
-                this.View = $dom('#customersView').first(); /* pour le moment pas utilisée */
+                this.View = $dom('#customersView').find(); /* pour le moment pas utilisée */
                 
                 this.Events = [
                     {

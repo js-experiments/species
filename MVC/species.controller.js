@@ -17,7 +17,7 @@ var Species = (function (species) {
             set : function(eventsList) {
                 var i;
                 for(i=0; i<eventsList.length; i++){
-                    species.dom(eventsList[i].what).all().forEach(
+                    species.dom(eventsList[i].what).findAll().forEach(
                         function(element) {
                             element.addEventListener(eventsList[i].event, eventsList[i].onEvent, false);
                         }
