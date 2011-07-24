@@ -30,11 +30,7 @@ var Species = (function (species) {
         if(arg.attr) { return this.elements.length > 0 ? this.elements[0].getAttribute(arg.attr) : null; }
     }
 
-    species.dom.findAll = function(selector){ return [].slice.apply(document.querySelectorAll(selector)); };
-    species.dom.find = function(selector){ return document.querySelector(selector) };
 
     window.$dom = species.dom; /*TODO: tester if exist*/
     return species;
 }(Species));
-
-// this.elements.forEach(function(elt){ elt.addEventListener(typeEvent,callback,false); });
