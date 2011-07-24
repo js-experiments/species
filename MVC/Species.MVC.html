@@ -121,11 +121,10 @@
                 this.customers.getAll().forEach(function(e) { html += "<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>" } );
                 html += '</ul>'
 
-                $dom('customers_list').prop({ innerHTML : html })
+                //$dom('customers_list').prop({ innerHTML : html })
 
-                /*this.customers.each(function(e) {
-                    $("#customersList").append("<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>");
-                });*/
+                $dom('customers_list').set({ prop : {  innerHTML : html } });
+
                 /*this.customers.getAll().forEach(function(e) { console.log( e.Id, e.Name, e.Budget); } );*/
             },
 
@@ -151,19 +150,31 @@
                         what : '#cmd01',
                         event : 'click',
                         onEvent : function(){
-                            $dom.find('result').innerHTML = that.customers.getAll().filter(function(e) { return e.Budget === 3000; } )[0].Name;
+                            //$dom.find('result').innerHTML = that.customers.getAll().filter(function(e) { return e.Budget === 3000; } )[0].Name;
+
+                            $dom('result').set({
+                                prop : {
+                                    innerHTML : that.customers.getAll().filter(function(e) { return e.Budget === 3000; } )[0].Name
+                                }
+                            });
                         }
                     },
                     {
                         what : '#cmd02',
                         event : 'click',
                         onEvent : function(){
-                            $dom.find('result').innerHTML = '';
+                            //$dom.find('result').innerHTML = '';
+                            $dom('result').set({ prop : { innerHTML : ''} });
 
                             that.customers.getAll().filter(function(e) {
                                 return e.Budget === 3000;
                             } ).forEach(function(e){
-                                        $dom.find('result').innerHTML += e.Name + ' - ' ;
+                                        //$dom.find('result').innerHTML += e.Name + ' - ' ;
+                                        $dom('result').set({
+                                            prop : {
+                                                innerHTML : $dom('result').get({ prop:'innerHTML' }) + e.Name + ' - '
+                                            }
+                                        });
                                     });
                         }
                     }

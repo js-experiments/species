@@ -5,49 +5,30 @@ var Species = (function (species) {
     species.dom = function(selector) {
         return {
             elements : [].slice.apply(document.querySelectorAll(selector)),
-            prop : species.dom.prop,
-            attr : species.dom.attr
-        }
-    };
-    /*
-        $dom('#cmd02').prop('innerHTML')
-        $dom('#cmd02').prop({ innerHTML: 'Hello' });
-        $dom('#cmd02').prop({ onclick : function(){ console.log('click click'); } });
-        $dom('#cmd02').prop({ innerHTML: 'SALUT', onclick : function() { console.log('###SALUT###'); } });
-
-    */
-    species.dom.prop = function(args) {
-        var m;
-        if(typeof args == 'string') {
-            return this.elements.length > 0 ? this.elements[0][args] : null;
-        } else {
-            this.elements.forEach(function(elt) {
-                for(m in args) {
-                    if (args.hasOwnProperty(m)) { elt[m] = args[m] };
-                }
-            });
-            return this;
+            set : species.dom.set,
+            get : species.dom.get
         }
     };
 
-    /*
-        $dom('#cmd02').attr({name:'CMD02', 'data-info' : 'hello'})
-        $dom('#cmd02').attr({style:'font-size:200%; color : red'})
-        $dom('#cmd02').attr('style')
-    */
-    species.dom.attr = function(args) {
+    species.dom.set = function(args) {
         var m;
-        if(typeof args == 'string') {
-            return this.elements.length > 0 ? this.elements[0].getAttribute(args) : null;
-        } else {
-            this.elements.forEach(function(elt) {
-                for(m in args) {
-                    if (args.hasOwnProperty(m)) { elt.setAttribute(m, args[m]); }
-                }
-            });
-            return this;
-        }
+        this.elements.forEach(function(elt) {
+            for(m in args.prop) {
+                if (args.prop.hasOwnProperty(m)) { elt[m] = args.prop[m]; };
+            };
+            for(m in args.attr) {
+                if (args.prop.hasOwnProperty(m)) { elt.setAttribute(m, args.attr[m]); };
+            };
+            for(m in args.bind) {
+                if (args.bind.hasOwnProperty(m)) { elt.addEventListener(args.bind[m].event, args.bind[m].callback, false); };
+            };
+        });
+        return this;
     };
+    species.dom.get = function(arg) {
+        if(arg.prop) { return this.elements.length > 0 ? this.elements[0][arg.prop] : null; };
+        if(arg.attr) { return this.elements.length > 0 ? this.elements[0].getAttribute(arg.attr) : null; }
+    }
 
     species.dom.findAll = function(selector){ return [].slice.apply(document.querySelectorAll(selector)); };
     species.dom.find = function(selector){ return document.querySelector(selector) };
@@ -55,3 +36,5 @@ var Species = (function (species) {
     window.$dom = species.dom; /*TODO: tester if exist*/
     return species;
 }(Species));
+
+// this.elements.forEach(function(elt){ elt.addEventListener(typeEvent,callback,false); });
