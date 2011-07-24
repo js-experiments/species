@@ -7,8 +7,8 @@ var Species = (function (species) {
     species.Controller = Species.Class({
 
         View : { /*dom element*/
-            get : function() { console.log('get view'); return this.view; },
-            set : function(value) { console.log('set view'); this.view = value; }
+            get : function() { return this.view; },
+            set : function(value) { this.view = value; }
         },
 
 

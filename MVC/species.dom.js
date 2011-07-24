@@ -2,6 +2,30 @@
 
 var Species = (function (species) {
 
+    /*
+        $dom('button').set({attr : { style : 'color:green'}, prop : { innerHTML : 'HELLO' } })
+        $dom('button').set({attr : { style : 'color:green'}, prop : { innerHTML : 'HELLO' } }).first().set({attr:{style:'color:red'}})
+
+        $dom('button').set({
+                attr : { style : 'color:green'},
+                prop : { innerHTML : 'HELLO' }
+            }).first().set({
+                    attr:{style:'color:red'}
+                }).all().set({
+                        prop:{innerHTML:'SALUT'}
+                    });
+
+        $dom('button').set({
+                attr : { style : 'color:green'},
+                prop : { innerHTML : 'HELLO' }
+            }).first().set({
+                    attr:{style:'color:red'},
+                    prop:{innerHTML:'hello'}
+                }).all().last().set({
+                        attr:{ style : 'color:orange'}
+                    });
+     */
+
     species.dom = function(selector) {
         return {
             elements : [].slice.apply(document.querySelectorAll(selector)),
@@ -12,7 +36,7 @@ var Species = (function (species) {
                         if (args.prop.hasOwnProperty(m)) { elt[m] = args.prop[m]; };
                     };
                     for(m in args.attr) {
-                        if (args.prop.hasOwnProperty(m)) { elt.setAttribute(m, args.attr[m]); };
+                        if (args.attr.hasOwnProperty(m)) { elt.setAttribute(m, args.attr[m]); };
                     };
                     for(m in args.bind) {
                         if (args.bind.hasOwnProperty(m)) { elt.addEventListener(args.bind[m].event, args.bind[m].callback, false); };
@@ -26,9 +50,15 @@ var Species = (function (species) {
             },
             findAll : function() { return this.elements; },
             find : function() { return this.elements[0]; },
-            first : function() { this.elements = this.elements[this.elements.length-1]; return this; },
-            last : function() { this.elements = this.elements[this.elements.length-1]; return this; },
-            select : function(n) { this.elements = this.elements[n]; return this; }
+
+            first : function() { this.elements = [this.elements[0]]; return this; },
+            last : function() { this.elements = [this.elements[this.elements.length-1]]; return this; },
+            select : function(n) { this.elements = [this.elements[n]]; return this; },
+            all : function(arg) {
+                selector = arg === undefined ? selector : arg;
+                this.elements = [].slice.apply(document.querySelectorAll(selector));
+                return this;
+            }
         }
     };
 
