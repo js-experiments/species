@@ -12,10 +12,6 @@
 </head>
 <body>
 
-    <script type="text/html" id="customersListTemplate">
-        <ul> {{#items}}<li> {{Id}} {{Name}} {{Budget}} ({{UID}})</li>{{/items}} </ul>
-    </script>
-
     <div id="customersView">
         <button id="cmd01">Le 1er client avec un budget de 3000</button>
         <button id="cmd02">Les clients avec un budget de 3000</button>
@@ -48,19 +44,12 @@
 
     var Bob = Supplier.New({ Name : 'Bob Morane', Code : '12345' });
 
-
-
     Bob.watch('Name', function(result){ console.log('Name has changed',result); });
     Bob.watch('Code', function(result){ console.log('Code has changed',result); });
 
 
 
     (function () {
-        /*--- declare template ---*/
-        Species.Renderer.ToHTML = function(a,b) {
-            console.log(a, b);
-            return '---------------------------';
-        };
 
         var Customer = Species.Class({
             Extends : Species.Model,
@@ -111,17 +100,9 @@
                 this.customers.save(tutu);
                 this.customers.save(tata);
 
-                this.render({
-                    data : { items : this.customers.getAll() },
-                    template : '#customersListTemplate',
-                    to : 'customers_list_bis'
-                });
-
                 var html = '<ul>'
                 this.customers.getAll().forEach(function(e) { html += "<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>" } );
                 html += '</ul>'
-
-                //$dom('customers_list').prop({ innerHTML : html })
 
                 $dom('customers_list').set({ prop : {  innerHTML : html } });
 
@@ -144,7 +125,8 @@
                     after : function(data){ console.log(data.UID + " : " + data.Name + " ("+ data.Id +") SAVED"); }
                 })
 
-                this.View = $dom.find('#customersView'); /* pour le moment pas utilisée */
+                this.View = $dom('#customersView').first(); /* pour le moment pas utilisée */
+                
                 this.Events = [
                     {
                         what : '#cmd01',

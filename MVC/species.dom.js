@@ -6,7 +6,11 @@ var Species = (function (species) {
         return {
             elements : [].slice.apply(document.querySelectorAll(selector)),
             set : species.dom.set,
-            get : species.dom.get
+            get : species.dom.get,
+            all : function() { return this.elements; },
+            first : function() { return this.elements[0]; },
+            last : function() { return this.elements[this.elements.length-1]; },
+            select : function(n) { return this.elements[n]; }
         }
     };
 

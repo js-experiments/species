@@ -4,16 +4,6 @@
 
 var Species = (function (species) {
 
-    species.Renderer = Species.Class({
-
-        ToHTML : {
-            get : function() { return this.toHTML; },
-            set : function(value) { this.toHTML = value ; }
-        }
-
-    });
-
-
     species.Controller = Species.Class({
 
         View : { /*dom element*/
@@ -22,13 +12,12 @@ var Species = (function (species) {
         },
 
 
-
         Events : {
             //get : function() {  },
             set : function(eventsList) {
                 var i;
                 for(i=0; i<eventsList.length; i++){
-                    species.dom.findAll(eventsList[i].what).forEach(
+                    species.dom(eventsList[i].what).all().forEach(
                         function(element) {
                             element.addEventListener(eventsList[i].event, eventsList[i].onEvent, false);
                         }
@@ -39,11 +28,10 @@ var Species = (function (species) {
 
         
         render : function(args) {
-            var template = species.dom.find(args.template);
-            var partElement = species.dom.find(args.to);
-            partElement.innerHTML = species.Renderer.ToHTML(template.innerText, args.data);
+
         },
 
+        //Listen
         listenChanges : function(model, cllbk, linkToView) {
             /*
                 model : Model
