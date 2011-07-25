@@ -2,6 +2,8 @@
 
 var Species = (function (species) {
 
+    function S4() { return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1); }
+
     /*
         $dom('button').set({attr : { style : 'color:green'}, prop : { innerHTML : 'HELLO' } })
         $dom('button').set({attr : { style : 'color:green'}, prop : { innerHTML : 'HELLO' } }).first().set({attr:{style:'color:red'}})
@@ -58,6 +60,32 @@ var Species = (function (species) {
                 selector = arg === undefined ? selector : arg;
                 this.elements = [].slice.apply(document.querySelectorAll(selector));
                 return this;
+            },
+
+            removeAttr : function(name) {
+                this.elements.forEach(function(elt){ elt.removeAttribute(name); });
+                return this;
+            },
+
+            remove : function() {
+                this.elements.forEach(function(elt){ elt.parentNode.removeChild(elt); });
+                return this;
+            },
+
+            add : function(tag, args) {
+                var nel = document.createElement(tag);
+
+
+                this.elements.forEach(function(elt){
+                    nel.setAttribute('id', '_' + (S4() + S4() + S4() + S4()  + S4()  + S4() + S4() + S4()));
+                    elt.appendChild(nel);
+
+                    if(args) species.dom('#'+nel.getAttribute('id')).set(args);
+
+                });
+
+                return this;
+                
             }
         }
     };
@@ -65,3 +93,15 @@ var Species = (function (species) {
     window.$dom = species.dom; /*TODO: tester if exist*/
     return species;
 }(Species));
+
+
+/*
+    _lavanja.dom.bind = function(typeEvent,callback) {
+        if(this.element){
+            this.element.addEventListener(typeEvent,callback,false);
+        } else {
+            this.elements.forEach(function(elt){ elt.addEventListener(typeEvent,callback,false); });
+        }
+        return this;
+    }
+*/

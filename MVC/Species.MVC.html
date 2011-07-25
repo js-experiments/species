@@ -16,7 +16,7 @@
         <button id="cmd01">Le 1er client avec un budget de 3000</button>
         <button id="cmd02">Les clients avec un budget de 3000</button>
         <customers_list></customers_list>
-        <customers_list_bis></customers_list_bis>
+
         <result></result>
     </div>
 
@@ -100,13 +100,21 @@
                 this.customers.save(tutu);
                 this.customers.save(tata);
 
-                var html = '<ul>'
-                this.customers.getAll().forEach(function(e) { html += "<li>" + e.Id + " : " + e.Name + " : " + e.Budget + "</li>" } );
-                html += '</ul>'
 
-                $dom('customers_list').set({ prop : {  innerHTML : html } });
+                $dom('customers_list').add('ul',{attr:{id:'the_list'}});
 
-                /*this.customers.getAll().forEach(function(e) { console.log( e.Id, e.Name, e.Budget); } );*/
+                this.customers.getAll().forEach(function(e) {
+                    $dom('#the_list').add('li',{ prop : { innerHTML : e.Id + " : " + e.Name + " : " + e.Budget } });
+                });
+
+                /*
+                $dom('customers_list').add('ul');
+
+                this.customers.getAll().forEach(function(e) {
+                    $dom('ul').add('li',{ prop : { innerHTML : e.Id + " : " + e.Name + " : " + e.Budget } });
+                });
+                */
+
             },
 
             initialize : function _CustomerController() {
@@ -125,7 +133,7 @@
                     after : function(data){ console.log(data.UID + " : " + data.Name + " ("+ data.Id +") SAVED"); }
                 })
 
-                this.View = $dom('#customersView').find(); /* pour le moment pas utilisée */
+                //this.View = $dom('#customersView').find(); /* pour le moment pas utilisée */
                 
                 this.Events = [
                     {

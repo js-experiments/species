@@ -1,15 +1,10 @@
 
 
-/* dependencies : species.dom.js */
-
 var Species = (function (species) {
-
+    var sel_all = function(selector) { return [].slice.apply(document.querySelectorAll(selector)); };
+    var sel_one = function(selector) { return document.querySelector(selector); };
     species.Controller = Species.Class({
 
-        View : { /*dom element*/
-            get : function() { return this.view; },
-            set : function(value) { this.view = value; }
-        },
 
 
         Events : {
@@ -17,7 +12,8 @@ var Species = (function (species) {
             set : function(eventsList) {
                 var i;
                 for(i=0; i<eventsList.length; i++){
-                    species.dom(eventsList[i].what).findAll().forEach(
+
+                    sel_all(eventsList[i].what).forEach(
                         function(element) {
                             element.addEventListener(eventsList[i].event, eventsList[i].onEvent, false);
                         }
