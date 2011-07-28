@@ -3,25 +3,25 @@
 <script>
     console.time('species');
     var Animal = Species.Class({
-        name : '???',
+        Name : '???',
         position : { x:0, y:0 },
         sayHello : function() {
             console.log('Hello, i am ' +
-                this.name + ', pos : ' +
+                this.Name + ', pos : ' +
                 this.position.x + ' ' + this.position.y);
         },
         getPosition : function() { console.log(this.position.x, this.position.y)},
         setPosition : function(x,y) { this.position.x = x; this.position.y = y; },
         initialize : function(args) {
             console.log('Animal constructor');
-            this.name = args.name;
+            this.Name = args.Name;
             this.position = args.position;
         }
 
     });
 
-    var a1 = Animal.New({ name :'A1', position : { x:5,y:5 } });
-    var a2 = Animal.New({ name :'A2', position : { x:7,y:8 } });
+    var a1 = Animal.New({ Name :'A1', position : { x:5,y:5 } });
+    var a2 = Animal.New({ Name :'A2', position : { x:7,y:8 } });
 
 
     var Dog = Species.Class({
@@ -33,9 +33,9 @@
             Dog.parent.initialize.call(this,args);
         }
     });
-    var dd = Dog.New({kind:'YORK',name : 'Virginie', position : {x:99,y:66}})
+    var dd = Dog.New({kind:'YORK',Name : 'Virginie', position : {x:99,y:66}})
 
-    var d1 = Dog.New({ kind : 'Berger Belge', name :'D1', position : { x:12,y:12 } });
+    var d1 = Dog.New({ kind : 'Berger Belge', Name :'D1', position : { x:12,y:12 } });
 
 
     var LittleDog = Species.Class({
@@ -46,12 +46,12 @@
         }
     });
 
-    var z1 = LittleDog.New({ kind : 'Chiwawa', name :'Z1', position : { x:35,y:35 } });
-    var zz = LittleDog.New({kind:'CHIWOUAWOUA',name : 'Cookie', position : {x:949,y:656}})
+    var z1 = LittleDog.New({ kind : 'Chiwawa', Name :'Z1', position : { x:35,y:35 } });
+    var zz = LittleDog.New({kind:'CHIWOUAWOUA',Name : 'Cookie', position : {x:949,y:656}})
 
     earth = {};
 
-    earth.z2 = LittleDog.New({ kind : 'BullDog', name :'Z2', position : { x:33,y:33 } });
+    earth.z2 = LittleDog.New({ kind : 'BullDog', Name :'Z2', position : { x:33,y:33 } });
 
     dd.sayHello();
     zz.sayHello();

@@ -21,7 +21,7 @@ var Species = (function () {
         /*--- define members ---*/
         for(m in class_def) {
 
-            if(class_def[m].get || class_def[m].set) {//Property
+            if(class_def[m].get || class_def[m].set) {//Property is defined by code
                 Object.defineProperty(k, m,{
                     get : class_def[m].get ? class_def[m].get : undefined,
                     set : class_def[m].set ? class_def[m].set : undefined,
@@ -30,12 +30,30 @@ var Species = (function () {
                 });
 
             } else {
-                Object.defineProperty(k, m,{
-                    value : class_def[m],
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                });
+
+                if(typeof class_def[m] === 'function') { //function
+                    Object.defineProperty(k, m,{
+                        value : class_def[m],
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
+                } else { //Property is generated
+
+                    Object.defineProperty(k, '_'+m.toLowerCase(),{
+                        value : class_def[m],
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
+                    
+                    Object.defineProperty(k, m,{
+                        get : new Function('return this._' + m.toLowerCase() + ';'),
+                        set : new Function('value', 'this._' + m.toLowerCase() + ' = value;'),
+                        enumerable: true,
+                        configurable: true
+                    });
+                }
             }
         }
 
@@ -58,7 +76,7 @@ var Species = (function () {
         /*--- isInstanceOf ---*/
         Object.defineProperty(k, "isInstanceOf",{
             value : function(klass) {
-                if(this.isInstance){
+                if(this.isInstance()){
                     return this.typeName == klass.typeName ? true : false;
                 } else { return false; }
 
@@ -77,5 +95,20 @@ var Species = (function () {
         }
         return k;
     };
+
+    species.deSerialize = function(args) { //from : json_object, to : species_object
+        //Species.deSerialize({ from : s, to : Z })
+        //TODO : find doc about JSON.bind()
+        var m, tmp = JSON.parse(args.from);
+        for(m in tmp) {
+            args.to[m] = tmp[m];
+        }
+        return args.to;
+    };
+
+    species.serialize = function(species_object) {
+        return JSON.stringify(species_object);
+    }
+
     return species;
 }());

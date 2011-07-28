@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC>
+<script src="js/species.js"></script>
+    <script src="js/plugins/species.aop.js"></script>
+    <script src="js/plugins/species.watch.js"></script>
+<script>
+    console.time('species');
+    var Animal = Species.Class({
+
+        Name : {
+            get : function () {
+                console.log('get FirstName : ' + this._name);
+                return this._name;
+            },
+            set : function (value) {
+                console.log('set FirstName : ' + value);
+                this._name = value;
+            }
+        },
+
+        Remark : 'it is a remark', //Property will be generated with get and set around _remark and default value
+        
+        Position : { x:0, y:0 }, //Property will be generated with get and set around _position and default value
+
+        sayHello : function() {
+            console.log('Hello, i am ' +
+                this._name + ', pos : ' +
+                this._position.x + ' ' + this._position.y);
+        },
+
+
+        
+        initialize : function _Animal(args) {
+            console.log('Animal constructor');
+            if(args) {
+                this._name = args.Name;
+                this._position = args.position;
+            }
+
+        }
+
+    });
+
+    var a1 = Animal.New({ Name :'A1', position : { x:5,y:5 } });
+    var a2 = Animal.New({ Name :'A2', position : { x:7,y:8 } });
+    var a3 = Animal.New();
+    var a4 = Animal.New();
+
+    console.log(a1, a2, a3, a4);
+
+    console.timeEnd('species');
+
+
+</script>

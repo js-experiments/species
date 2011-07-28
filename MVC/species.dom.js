@@ -63,6 +63,7 @@ var Species = (function (species) {
             },
 
             removeAttr : function(name) {
+                console.log('removeAttr');
                 this.elements.forEach(function(elt){ elt.removeAttribute(name); });
                 return this;
             },
@@ -75,22 +76,24 @@ var Species = (function (species) {
             add : function(tag, args) {
                 var nel = document.createElement(tag);
 
-
                 this.elements.forEach(function(elt){
-                    nel.setAttribute('id', '_' + (S4() + S4() + S4() + S4()  + S4()  + S4() + S4() + S4()));
+                    //nel.setAttribute('id', '_' + (S4() + S4() + S4() + S4()  + S4()  + S4() + S4() + S4()));
+                    nel.setAttribute('id', '_tmp_');
                     elt.appendChild(nel);
 
                     if(args) species.dom('#'+nel.getAttribute('id')).set(args);
 
-                });
+                    if(nel.getAttribute('id') === '_tmp_') nel.removeAttribute('id')
 
+
+
+                });
                 return this;
-                
             }
         }
     };
+    if(!window.$dom){window.$dom = species.dom;}
 
-    window.$dom = species.dom; /*TODO: tester if exist*/
     return species;
 }(Species));
 

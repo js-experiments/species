@@ -13,31 +13,31 @@
 <script id='singleton'>
 
     var Singleton = Species.Class({
-        instantiated : false,
-        instance : {},
-        name : '',
+        Instantiated : false,
+        Instance : {},
+        Name : '',
 
         getInstance : function(name) {
-            if(!Singleton.instantiated) {
-                Singleton.instantiated = true;
-                Singleton.instance = Singleton.New(name);
+            if(!Singleton.Instantiated) {
+                Singleton.Instantiated = true;
+                Singleton.Instance = Singleton.New(name);
             } else {
                 console.log('already instantiated');
             }
-            return Singleton.instance;
+            return Singleton.Instance;
         },
 
         initialize : function(name) {
-            this.name = name;
+            this._name = name;
         }
     });
 
     var S1 = Singleton.getInstance('Singleton');
     var S2 = Singleton.getInstance('An other Singleton');
 
-    console.log(S1.name);
-    console.log(S2.name);
-    console.log(Singleton.instance.name);
+    console.log(S1.Name);
+    console.log(S2.Name);
+    console.log(Singleton.Instance.Name);
 
 </script>
 <script>

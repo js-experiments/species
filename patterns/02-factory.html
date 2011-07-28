@@ -13,20 +13,20 @@
 <script id='factory'>
 
     var Duck = Species.Class({
-        kind : 'Duck',
+        Kind : 'Duck',
         initialize : function() {
-            console.log('I am a ' + this.kind);
+            console.log('I am a ' + this._kind);
         }
     });
 
     var RealDuck = Species.Class({
         Extends : Duck,
-        kind : 'RealDuck'
+        Kind : 'RealDuck'
     });
 
     var PlasticDuck = Species.Class({
         Extends : Duck,
-        kind : 'PlasticDuck'
+        Kind : 'PlasticDuck'
     });
 
     var DucksFactory = Species.Class({
