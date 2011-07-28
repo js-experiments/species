@@ -1,30 +1,35 @@
-
 var Species = (function (species) {
 
     /*--- Watching ---*/
-    Object.prototype.watch = function (propertyName, handler) {
+    species.watch = function(what, propertyName, handler) {
+        var old_propertyName = propertyName;
+        propertyName = '_' + propertyName.toLowerCase();
 
-        this['__'+propertyName] = this[propertyName];
+        what['__'+propertyName] = what[propertyName];
 
-        Object.defineProperty(this, propertyName,{
-            get : function(){ return this['__'+propertyName]; },
+        Object.defineProperty(what, propertyName,{
+            get : function(){ return what['__'+propertyName]; },
             set : function(value) {
-                handler.call(this, { propertyName : propertyName, oldValue : this['__'+propertyName], newValue : value });
-                this['__'+propertyName] = value;
+                handler.call(what, { propertyName : old_propertyName, oldValue : what['__'+propertyName], newValue : value });
+                what['__'+propertyName] = value;
             },
             enumerable: true,
             configurable: true
         });
+
     };
 
     /*--- UnWatching ---*/
-    Object.prototype.unwatch = function (propertyName) {
-        var value = this[propertyName];
-        delete this[propertyName]; // remove getter and setter
-        this[propertyName] = value;
-    };
+    species.unwatch = function(what, propertyName) {
 
-    //Species.watch ??? instead of Object.watch ???
+        propertyName = '_' + propertyName.toLowerCase();
+
+        var value = what[propertyName];
+        delete what[propertyName]; // remove getter and setter
+        //remove watch et unwatch ???
+        what[propertyName] = value;
+
+    }
 
     return species;
 }(Species));

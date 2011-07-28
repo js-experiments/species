@@ -23,7 +23,7 @@
         }
     });
 
-    Human.watch('Name', function(result) {
+    Species.watch(Human,'Name', function(result) {
         console.log( 'Property : ' + result.propertyName + ' Old : ' + result.oldValue + ' New : ' + result.newValue);
     });
 
@@ -33,7 +33,7 @@
 
     var Sam = Human.New('Sam');
 
-    Sam.watch('Name', function(result) {
+    Species.watch(Sam, 'Name', function(result) {
         console.log( 'Only for Sam : Property : ' + result.propertyName + ' Old : ' + result.oldValue + ' New : ' + result.newValue);
     });
     Sam.Name = 'Sammy'

@@ -40,7 +40,7 @@ var Species = (function () {
                     });
                 } else { //Property is generated
 
-                    Object.defineProperty(k, '_'+m.toLowerCase(),{
+                    Object.defineProperty(k, '_'+ m.toLowerCase(),{
                         value : class_def[m],
                         writable: true,
                         enumerable: true,
