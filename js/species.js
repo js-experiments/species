@@ -21,40 +21,13 @@ var Species = (function () {
         /*--- define members ---*/
         for(m in class_def) {
 
-            if(class_def[m].get || class_def[m].set) {//Property is defined by code
-                Object.defineProperty(k, m,{
-                    get : class_def[m].get ? class_def[m].get : undefined,
-                    set : class_def[m].set ? class_def[m].set : undefined,
-                    enumerable: true,
-                    configurable: true
-                });
+            Object.defineProperty(k, m,{
+                value : class_def[m],
+                writable: true,
+                enumerable: true,
+                configurable: true
+            });
 
-            } else {
-
-                if(typeof class_def[m] === 'function') { //function
-                    Object.defineProperty(k, m,{
-                        value : class_def[m],
-                        writable: true,
-                        enumerable: true,
-                        configurable: true
-                    });
-                } else { //Property is generated
-
-                    Object.defineProperty(k, '_'+ m.toLowerCase(),{
-                        value : class_def[m],
-                        writable: true,
-                        enumerable: true,
-                        configurable: true
-                    });
-                    
-                    Object.defineProperty(k, m,{
-                        get : new Function('return this._' + m.toLowerCase() + ';'),
-                        set : new Function('value', 'this._' + m.toLowerCase() + ' = value;'),
-                        enumerable: true,
-                        configurable: true
-                    });
-                }
-            }
         }
 
         /*--- if initialize is named ---*/
@@ -76,7 +49,7 @@ var Species = (function () {
         /*--- isInstanceOf ---*/
         Object.defineProperty(k, "isInstanceOf",{
             value : function(klass) {
-                if(this.isInstance()){
+                if(this.isInstance){
                     return this.typeName == klass.typeName ? true : false;
                 } else { return false; }
 
@@ -88,7 +61,14 @@ var Species = (function () {
 
 
         k.New = function(props) {
-            var inst = Object.create(k);
+            var inst = Object.create(k),m;
+            
+            /*--- apply default values ---*/
+            for(m in inst) { //default value
+                if (typeof inst[m] != 'function') inst[m] = inst[m];
+            }
+            /*---*/
+
             inst.isInstance = true;
             if (inst.initialize) { inst.initialize.apply(inst, arguments); }
             return inst;
@@ -106,9 +86,59 @@ var Species = (function () {
         return args.to;
     };
 
+    //only if you are not watching members
     species.serialize = function(species_object) {
+        //TODO: to verifiy if watchable
         return JSON.stringify(species_object);
     }
+
+
+    /*--- Watching ---*/
+    species.watch = function(what, propertyName, handler) {
+        what['watchable_'+propertyName] = what[propertyName];
+
+        Object.defineProperty(what, propertyName,{
+            get : function(){ return what['watchable_'+propertyName]; },
+            set : function(value) {
+                handler.call(what, { propertyName : propertyName, oldValue : what['watchable_'+propertyName], newValue : value });
+                what['watchable_'+propertyName] = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+    };
+
+    /*--- UnWatching ---*/
+    species.unwatch = function(what, propertyName) {
+        var value = what[propertyName];
+        delete what[propertyName]; // remove getter and setter
+        delete what['watchable_'+propertyName];
+        what[propertyName] = value;
+    };
+
+    species.unwatchAll = function(what) {
+        //TODO: ...
+    };
+
+    /*--- AOP ---*/
+    species.aop = {
+        before : function(obj, fname, advice) {
+            var oldFunc = obj[fname];
+                obj[fname] = function() {
+                advice.apply(this, arguments);
+                return oldFunc.apply(this, arguments);
+            }
+        },
+        after : function(obj, fname, advice) {
+            var oldFunc = obj[fname];
+            obj[fname] = function() {
+                oldFunc.apply(this, arguments);
+                return advice.apply(this, arguments);
+            };
+        }
+    }
+
 
     return species;
 }());

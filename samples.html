@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC>
+<script src="js/species.js"></script>
+
+<script>
+
+    var Human = Species.Class({
+        /*--- Default Values ---*/
+
+        FirstName : 'John',
+        LastName : 'Doe',
+        NickName : 'Johnny',
+
+        /*--- Constructor ---*/
+        // Convention : if you want a typed instance, you have to name wit underscore + variable name
+        initialize : function _Human() {
+
+            console.log('Human constructor');
+
+            //Member without default value
+            this.Remark = 'HELLO';
+
+        },
+
+        sayHello : function() {
+            console.log('Hello, i am ' + this.FirstName + ' ' + this.LastName);
+        }
+
+    });
+
+    /*--- get Human instance ---*/
+
+    var Bob = Human.New();
+
+    console.log(Bob.isInstance, Bob.isInstanceOf(Human), Bob.typeName);
+    /* -> displays : true, true, "Human" */
+
+    var s = Species.serialize(Bob);
+    var X = Species.deSerialize({from : s, to : Human.New()});
+
+
+
+</script>

@@ -6,32 +6,21 @@
     console.time('species');
     var Animal = Species.Class({
 
-        Name : {
-            get : function () {
-                console.log('get FirstName : ' + this._name);
-                return this._name;
-            },
-            set : function (value) {
-                console.log('set FirstName : ' + value);
-                this._name = value;
-            }
-        },
-
-        Remark : 'it is a remark', //Property will be generated with get and set around _remark and default value
-        
-        Position : { x:0, y:0 }, //Property will be generated with get and set around _position and default value
+        Name : "",
+        Remark : 'it is a remark',
+        Position : { x:0, y:0 },
 
         sayHello : function() {
             console.log('Hello, i am ' +
-                this._name + ', pos : ' +
-                this._position.x + ' ' + this._position.y);
+                this.Name + ', pos : ' +
+                this.Position.x + ' ' + this.Position.y);
         },
 
         initialize : function _Animal(args) {
             console.log('Animal constructor');
             if(args) {
-                this._name = args.Name;
-                this._position = args.position;
+                this.Name = args.Name;
+                this.Position = args.position;
             }
         }
 
