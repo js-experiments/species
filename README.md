@@ -337,6 +337,13 @@ It's very easy to add functionalities to Species :
         return species;
     }(Species));
 
+##License
+
+
+
+Species is available under the terms of the [MIT-License](http://en.wikipedia.org/wiki/MIT_License#License_terms).
+
+Copyright 2011, Philippe Charrière
 
 
 - - -
