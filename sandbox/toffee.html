@@ -16,8 +16,11 @@
         LastName : 'Doe',
         NickName : 'Johnny',
 
-        initialize : function() {
+        /*--- constructor ---*/
+        Human(firstName, lastName) {
             console.log('Human constructor');
+            this.FirstName = firstName;
+            this.LastName = lastName;
             this.Remark = 'HELLO';
         },
 
@@ -26,12 +29,12 @@
         }
     });
 
-    var Bob = Human.New();
+    var Bob = Human.New("Bob","Morane");
     console.log(Bob);
 
     Class Animal({
         Name : '???',
-        initialize : function() {
+        Animal() {
             console.log('Animal constructor');
         }
     });

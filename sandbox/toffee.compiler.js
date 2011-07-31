@@ -13,6 +13,9 @@ class_list.forEach(function(e) {
     if (class_name !== '') {
         console.log(' --> compiling ' + class_name + ' ...');
         src = src.replace('Class '+ class_name, 'var ' + class_name + ' = Species.Class' );
+
+        //src = src.replace(class_name + ' : function(', 'initialize : function _' + class_name + '(' );
+        src = src.replace(class_name + '(', 'initialize : function _' + class_name + '(' );
     }
 
 });
