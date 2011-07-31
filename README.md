@@ -20,6 +20,7 @@
 - To instantiate a class : `class_name.New(parameters)`
 
 
+
     var Human = Species.Class({
         /*--- Default Values ---*/
 
