@@ -170,7 +170,7 @@ The handler function is something like that `function(arg) { /* do something */ 
     });
     Sam.Name = 'Sammy'
 
-##One More Thing
+##More classical OOP
 
 With Species, you can thinking like in Java (or C#), and almost reproduce your classical OOP mind logic.
 
@@ -324,6 +324,19 @@ With Species, you can thinking like in Java (or C#), and almost reproduce your c
     console.log("Aston Martin total price : " + astonMartin.Price());
 
 ####Etc. ...
+
+##One More Thing : plugins
+
+It's very easy to add functionalities to Species :
+
+    var Species = (function (species) {
+
+        species.something = function(arg) { /*doing something*/ }
+
+        return species;
+    }(Species));
+
+
 
 - - -
 
