@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC>
-<script src="js/species.js"></script>
+<script src="../js/species.js"></script>
 
 <script>
 
@@ -34,8 +34,8 @@
     console.log(Bob.isInstance, Bob.isInstanceOf(Human), Bob.typeName);
     /* -> displays : true, true, "Human" */
 
-    var s = Species.serialize(Bob);
-    var X = Species.deSerialize({from : s, to : Human.New()});
+    var s_bob = Species.serialize(Bob);
+    var  OtherBob = Species.deSerialize({from : s_bob, to : Human.New()});
 
 
 
