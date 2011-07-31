@@ -11,6 +11,8 @@
 <script src="species.min.js"></script>
 
 <script type="text/toffee" charset="utf-8">
+    /*--- utiliser la console ---*/
+
     Class Human({
         FirstName : 'John',
         LastName : 'Doe',
@@ -44,6 +46,8 @@
 
     document.querySelector('Human').innerHTML = Bob.FirstName + ' ' + Bob.LastName;
     document.querySelector('Animal').innerHTML = Taz.Name;
+
+    console.log(Bob.typeName, Taz.typeName);
 
 </script>
 
