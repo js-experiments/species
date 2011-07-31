@@ -238,7 +238,7 @@ With Species, you can thinking like in Java (or C#), and almost reproduce your c
         },
 
         initialize : function(name) {
-            this._name = name;
+            this.Name = name;
         }
     });
 
@@ -249,15 +249,18 @@ With Species, you can thinking like in Java (or C#), and almost reproduce your c
             this.human.walking();
             console.log('after walking ...');
         },
-        Name : {
-            get : function() { return this.human.Name; },
-            set : function(value) { this.human.Name = value; }
-        },
 
         initialize : function(human) {
             this.human = human;
         }
     });
+
+    var Bob = HumanProxy.New(Human.New('Bob'));
+    Bob.walking();
+
+    var Sam = HumanProxy.New(Human.New('Sam'));
+
+    Sam.walking();
 
 ####Decorator :
 
