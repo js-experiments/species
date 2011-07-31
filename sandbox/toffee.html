@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+    <title>Watch</title>
+</head>
+<body>
+    <Human></Human>
+    <Animal></Animal>
+</body>
+
+<script src="species.min.js"></script>
+
+<script type="text/toffee" charset="utf-8">
+    Class Human({
+        FirstName : 'John',
+        LastName : 'Doe',
+        NickName : 'Johnny',
+
+        initialize : function() {
+            console.log('Human constructor');
+            this.Remark = 'HELLO';
+        },
+
+        sayHello : function() {
+            console.log('Hello, i am ' + this.FirstName + ' ' + this.LastName);
+        }
+    });
+
+    var Bob = Human.New();
+    console.log(Bob);
+
+    Class Animal({
+        Name : '???',
+        initialize : function() {
+            console.log('Animal constructor');
+        }
+    });
+
+    var Taz = Animal.New();
+    console.log(Taz);
+
+    document.querySelector('Human').innerHTML = Bob.FirstName + ' ' + Bob.LastName;
+    document.querySelector('Animal').innerHTML = Taz.Name;
+
+</script>
+
+<script src="toffee.compiler.js"></script>
+
+</html>
