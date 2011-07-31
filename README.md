@@ -19,7 +19,7 @@
 - The keyword is `Species.Class({ /* class definition */})`
 - To instantiate a class : `class_name.New(parameters)`
 
-
+####Example
 
     var Human = Species.Class({
         /*--- Default Values ---*/
