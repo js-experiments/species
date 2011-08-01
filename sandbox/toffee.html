@@ -8,12 +8,11 @@
     <Animal></Animal>
 </body>
 
-<script src="species.min.js"></script>
-
 <script type="text/toffee" charset="utf-8">
-    /*--- utiliser la console ---*/
+    /*--- use console mode ---*/
 
     Class Human({
+        /*--- default values ---*/
         FirstName : 'John',
         LastName : 'Doe',
         NickName : 'Johnny',
@@ -27,7 +26,7 @@
         },
 
         sayHello : function() {
-            console.log('Hello, i am ' + this.FirstName + ' ' + this.LastName);
+            puts('Hello, i am ' + this.FirstName + ' ' + this.LastName);
         }
     });
 
@@ -37,17 +36,30 @@
     Class Animal({
         Name : '???',
         Animal() {
-            console.log('Animal constructor');
+            puts('Animal constructor');
         }
     });
 
     var Taz = Animal.New();
-    console.log(Taz);
+    puts(Taz);
 
     document.querySelector('Human').innerHTML = Bob.FirstName + ' ' + Bob.LastName;
     document.querySelector('Animal').innerHTML = Taz.Name;
 
-    console.log(Bob.typeName, Taz.typeName);
+    puts(Bob.typeName, Taz.typeName);
+
+    Class Dog({ :: Animal, /*--- inheritance ---*/
+
+        Dog(){
+            Dog.parent.initialize.call(this);
+            puts('Dog constructor');
+        }
+    });
+
+    var wolf = Dog.New();
+
+    puts(wolf, wolf.typeName, wolf.parent.typeName);
+
 
 </script>
 
