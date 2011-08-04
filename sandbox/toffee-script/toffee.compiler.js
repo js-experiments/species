@@ -56,6 +56,7 @@ console.time('Executing time');
 
 //<script src="species.min.js"></script>
 document.write('<script src="toffee.runtime.js"><\/script>');
+document.write('<script src="toffee.backbone.js"><\/script>');
 document.write('<script>'+src+'<\/script>');
 
 console.timeEnd('Executing time');

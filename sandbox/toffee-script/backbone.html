@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+    <title>ToffeeScript</title>
+    <script src="vendors/zepto.min.js"></script>
+    <script src="vendors/underscore-min.js"></script>
+    <script src="vendors/backbone-min.js"></script>
+
+</head>
+<body>
+
+</body>
+
+<script>
+
+
+
+
+</script>
+
+<script type="text/toffee" charset="utf-8">
+    /*--- use console mode ---*/
+
+    Class Human({ :: BBModel,
+        def : {
+            defaults : {
+                id : null,
+                name : "John Doe",
+                remark : null
+            },
+            initialize : function() {
+                console.log("initialize Human");
+            }
+        },
+
+        Human(name) {
+            Human.parent.initialize.call(this);
+            this.set({'name' : name});
+        }
+    });
+
+    var Bob = Human.New('Bob');
+
+    console.log(Bob.get('name'));
+
+
+</script>
+
+<script src="toffee.compiler.js"></script>
+
+
+</html>
