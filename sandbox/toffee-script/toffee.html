@@ -23,6 +23,7 @@
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Remark = 'HELLO';
+
         },
 
         sayHello : function() {
@@ -37,6 +38,7 @@
         Name : '???',
         Animal() {
             puts('Animal constructor');
+
         }
     });
 
@@ -51,7 +53,9 @@
     Class Dog({ :: Animal, /*--- inheritance ---*/
 
         Dog(){
-            Dog.parent.initialize.call(this);
+
+            super.initialize(this);
+
             puts('Dog constructor');
         }
     });

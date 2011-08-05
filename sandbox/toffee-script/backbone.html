@@ -34,7 +34,7 @@
         },
 
         Human(name) {
-            Human.parent.initialize.call(this);
+            super.initialize(this);
             this.set({'name' : name});
         }
     });

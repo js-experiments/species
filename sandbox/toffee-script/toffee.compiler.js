@@ -23,11 +23,29 @@ console.time('Total compiling time');
                 if (class_name !== '') {
                     console.log(' --> compiling ' + class_name + ' ...');
 
+                /*--- super ---*/
+
+                var s_super = e.split('super.');
+                if(s_super.length >=1) {
+                    for(var i=0;i < s_super.length; i++) {
+                        if((i+1)< s_super.length){
+                            var super_method = s_super[i+1].split('(')[0].trim();
+                            src = src.replace('super.' + super_method + '(', class_name + '.parent.' + super_method + '.call(');
+                            console.log("     find 'super' -> :",super_method);
+                        }
+                    }
+                }
+                /*-------------*/
+
+
+                    //On ne remplace que le 1er trouvé
+
                     src = src.replace('Class '+ class_name, 'var ' + class_name + ' = Species.Class' );
 
                     //src = src.replace(class_name + ' : function(', 'initialize : function _' + class_name + '(' );
                     src = src.replace(class_name + '(', 'initialize : function _' + class_name + '(' );
                     src = src.replace('::', 'Extends : ');
+
                 }
             }
 
