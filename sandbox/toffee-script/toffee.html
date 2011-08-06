@@ -28,7 +28,18 @@
 
         sayHello : function() {
             puts('Hello, i am ' + this.FirstName + ' ' + this.LastName);
+        },
+
+        static : {
+            counter : 20
         }
+
+    });
+
+    Class SuperHeroe({ :: Human,
+
+        SuperHeroe() {}
+
     });
 
     var Bob = Human.New("Bob","Morane");
@@ -39,7 +50,9 @@
         Animal() {
             puts('Animal constructor');
 
-        }
+        },
+
+        shout : function(what) { console.log('shout ...', what);}
     });
 
     var Taz = Animal.New();
@@ -57,10 +70,17 @@
             super.initialize(this);
 
             puts('Dog constructor');
+        },
+
+        shout : function(what) {
+            super.shout(this,what);
+            console.log('wouaf ...',what);
         }
     });
 
     var wolf = Dog.New();
+
+    wolf.shout('i am wolf');
 
     puts(wolf, wolf.typeName, wolf.parent.typeName);
 

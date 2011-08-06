@@ -1,4 +1,166 @@
-var Species=function(){return{Class:function(a){var b,c;if(a.Extends){c=Object.create(a.Extends);if(c.initialize)c.initialize.prototype=c;c.parent=a.Extends}else c=Object.create({});for(b in a)Object.defineProperty(c,b,{value:a[b],writable:!0,enumerable:!0,configurable:!0});Object.defineProperty(c,"typeName",{value:a.initialize?a.initialize.name.replace("_",""):null,writable:!1,enumerable:!0,configurable:!1});Object.defineProperty(c,"isInstance",{value:!1,writable:!0,enumerable:!0,configurable:!0});
-Object.defineProperty(c,"isInstanceOf",{value:function(a){return this.isInstance?this.typeName==a.typeName?!0:!1:!1},writable:!1,enumerable:!0,configurable:!1});c.New=function(){var a=Object.create(c),b;for(b in a)typeof a[b]!="function"&&(a[b]=a[b]);a.isInstance=!0;a.initialize&&a.initialize.apply(a,arguments);return a};return c},deSerialize:function(a){var b,c=JSON.parse(a.from);for(b in c)a.to[b]=c[b];return a.to},serialize:function(a){return JSON.stringify(a)},watch:function(a,b,c){a["watchable_"+
-b]=a[b];Object.defineProperty(a,b,{get:function(){return a["watchable_"+b]},set:function(d){c.call(a,{propertyName:b,oldValue:a["watchable_"+b],newValue:d});a["watchable_"+b]=d},enumerable:!0,configurable:!0})},unwatch:function(a,b){var c=a[b];delete a[b];delete a["watchable_"+b];a[b]=c},unwatchAll:function(){},aop:{before:function(a,b,c){var d=a[b];a[b]=function(){c.apply(this,arguments);return d.apply(this,arguments)}},after:function(a,b,c){var d=a[b];a[b]=function(){d.apply(this,arguments);return c.apply(this,
-arguments)}}}}}();
+/**
+  * species.js - copyright @k33G_org
+  * version 1.0
+  * https://github.com/k33g/species
+  * MIT License
+  */
+
+var Species = (function () {
+    var species = {};
+
+    species.Class = function(class_def) {
+        var m, k, t;
+        if(class_def.Extends) {
+            k = Object.create(class_def.Extends);
+            if(k.initialize) { k.initialize.prototype = k; }
+            k.parent = class_def.Extends;
+        } else {
+            k = Object.create({});
+        }
+
+        /*--- define members ---*/
+        for(m in class_def) {
+            Object.defineProperty(k, m,{
+                value : class_def[m],
+                writable: true,
+                enumerable: true,
+                configurable: true
+            });
+        }
+
+        /*--- if initialize is named ---*/
+        Object.defineProperty(k, "typeName",{
+            value : class_def["initialize"] ? class_def["initialize"].name.replace('_','') : null,
+            writable: false,
+            enumerable: true,
+            configurable: false
+        });
+
+        /*--- isInstance ---*/
+        Object.defineProperty(k, "isInstance",{
+            value : false,
+            writable: true,
+            enumerable: true,
+            configurable: true
+        });
+
+        /*--- isInstanceOf ---*/
+        Object.defineProperty(k, "isInstanceOf",{
+            value : function(klass) {
+                if(this.isInstance){
+                    return this.typeName == klass.typeName ? true : false;
+                } else { return false; }
+
+            },
+            writable: false,
+            enumerable: true,
+            configurable: false
+        });
+
+        /*--- static ---*/
+        if(k.static) {
+            for(var m in k.static){
+                Object.defineProperty(k, m,{
+                    value : k.static[m],
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                });
+            }
+        }
+
+        k.New = function(props) {
+            var inst = Object.create(k),m;
+            
+            /*--- apply default values ---*/
+            for(m in inst) { //default value
+                if (typeof inst[m] != 'function') inst[m] = inst[m];
+            }
+            /*---*/
+
+            inst.isInstance = true;
+            if (inst.initialize) { inst.initialize.apply(inst, arguments); }
+
+            /*--- static ---*/
+            if(inst.static) {
+                for(var m in inst.static){
+                    inst[m] = undefined;
+                }
+                inst.static = undefined;
+            }
+            return inst;
+        }
+
+
+        //function(){ throw 'static member'; };
+
+
+        return k;
+    };
+
+    species.deSerialize = function(args) { //from : json_object, to : species_object
+        //Species.deSerialize({ from : s, to : Z })
+        //TODO : find doc about JSON.bind()
+        var m, tmp = JSON.parse(args.from);
+        for(m in tmp) {
+            args.to[m] = tmp[m];
+        }
+        return args.to;
+    };
+
+    //only if you are not watching members
+    species.serialize = function(species_object) {
+        //TODO: to verifiy if watchable
+        return JSON.stringify(species_object);
+    }
+
+
+    /*--- Watching ---*/
+    species.watch = function(what, propertyName, handler) {
+        what['watchable_'+propertyName] = what[propertyName];
+
+        Object.defineProperty(what, propertyName,{
+            get : function(){ return what['watchable_'+propertyName]; },
+            set : function(value) {
+                handler.call(what, { propertyName : propertyName, oldValue : what['watchable_'+propertyName], newValue : value });
+                what['watchable_'+propertyName] = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+    };
+
+    /*--- UnWatching ---*/
+    species.unwatch = function(what, propertyName) {
+        var value = what[propertyName];
+        delete what[propertyName]; // remove getter and setter
+        delete what['watchable_'+propertyName];
+        what[propertyName] = value;
+    };
+
+    species.unwatchAll = function(what) {
+        //TODO: ...
+    };
+
+    /*--- AOP ---*/
+    species.aop = {
+        before : function(obj, fname, advice) {
+            var oldFunc = obj[fname];
+                obj[fname] = function() {
+                advice.apply(this, arguments);
+                return oldFunc.apply(this, arguments);
+            }
+        },
+        after : function(obj, fname, advice) {
+            var oldFunc = obj[fname];
+            obj[fname] = function() {
+                oldFunc.apply(this, arguments);
+                return advice.apply(this, arguments);
+            };
+        }
+    }
+
+
+    return species;
+}());
