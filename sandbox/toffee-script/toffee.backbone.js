@@ -1,4 +1,4 @@
-    var BBModel = Species.Class({
+    var BBModel = $T.Class({
 
         initialize : function _Model() {
             this.model = Backbone.Model.extend(this.def);

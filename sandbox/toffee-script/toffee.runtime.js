@@ -5,10 +5,10 @@
   * MIT License
   */
 
-var Species = (function () {
-    var species = {};
+var $T = Toffee = (function () {
+    var toffee = {};
 
-    species.Class = function(class_def) {
+    toffee.Class = function(class_def) {
         var m, k, t;
         if(class_def.Extends) {
             k = Object.create(class_def.Extends);
@@ -98,7 +98,7 @@ var Species = (function () {
         return k;
     };
 
-    species.deSerialize = function(args) { //from : json_object, to : species_object
+    toffee.deSerialize = function(args) { //from : json_object, to : species_object
         //Species.deSerialize({ from : s, to : Z })
         //TODO : find doc about JSON.bind()
         var m, tmp = JSON.parse(args.from);
@@ -109,14 +109,14 @@ var Species = (function () {
     };
 
     //only if you are not watching members
-    species.serialize = function(species_object) {
+    toffee.serialize = function(species_object) {
         //TODO: to verifiy if watchable
         return JSON.stringify(species_object);
     }
 
 
     /*--- Watching ---*/
-    species.watch = function(what, propertyName, handler) {
+    toffee.watch = function(what, propertyName, handler) {
         what['watchable_'+propertyName] = what[propertyName];
 
         Object.defineProperty(what, propertyName,{
@@ -132,19 +132,19 @@ var Species = (function () {
     };
 
     /*--- UnWatching ---*/
-    species.unwatch = function(what, propertyName) {
+    toffee.unwatch = function(what, propertyName) {
         var value = what[propertyName];
         delete what[propertyName]; // remove getter and setter
         delete what['watchable_'+propertyName];
         what[propertyName] = value;
     };
 
-    species.unwatchAll = function(what) {
+    toffee.unwatchAll = function(what) {
         //TODO: ...
     };
 
     /*--- AOP ---*/
-    species.aop = {
+    toffee.aop = {
         before : function(obj, fname, advice) {
             var oldFunc = obj[fname];
                 obj[fname] = function() {
@@ -161,6 +161,5 @@ var Species = (function () {
         }
     }
 
-
-    return species;
+    return toffee;
 }());

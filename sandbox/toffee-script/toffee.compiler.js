@@ -40,7 +40,7 @@ console.time('Total compiling time');
 
                     //On ne remplace que le 1er trouvé
 
-                    src = src.replace('Class '+ class_name, 'var ' + class_name + ' = Species.Class' );
+                    src = src.replace('Class '+ class_name, 'var ' + class_name + ' = $T.Class' );
 
                     //src = src.replace(class_name + ' : function(', 'initialize : function _' + class_name + '(' );
                     src = src.replace(class_name + '(', 'initialize : function _' + class_name + '(' );
@@ -58,9 +58,9 @@ console.time('Total compiling time');
     /*-----------------------------------------*/
 
         src = src.replace(/puts\(/g, 'console.log(');
-        src = src.replace(/watch\(/g, 'Species.watch(');
-        src = src.replace(/aop.before\(/g, 'Species.aop.before(');
-        src = src.replace(/aop.after\(/g, 'Species.aop.after(');
+        src = src.replace(/watch\(/g, '$T.watch(');
+        src = src.replace(/aop.before\(/g, '$T.aop.before(');
+        src = src.replace(/aop.after\(/g, '$T.aop.after(');
 
     console.timeEnd('System compiling time');
 
