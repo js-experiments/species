@@ -16,6 +16,11 @@
             console.log('Animal constructor');
             this.Name = args.Name;
             this.position = args.position;
+            Animal.count += 1;
+        },
+
+        static : {
+            count : 0
         }
 
     });
@@ -31,6 +36,7 @@
             console.log('Dog constructor');
             this.kind = args.kind;
             Dog.parent.initialize.call(this,args);
+            Dog.count += 1;
         }
     });
     var dd = Dog.New({kind:'YORK',Name : 'Virginie', position : {x:99,y:66}})

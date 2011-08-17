@@ -23,9 +23,17 @@
 
         sayHello : function() {
             console.log('Hello, i am ' + this.FirstName + ' ' + this.LastName);
+        },
+
+        static : {
+            x : function(v) { console.log('x',v); },
+            y : function(v) { console.log('y',v); },
+            count : 12
         }
 
     });
+
+    //Human.x = function(){console.log('XXX ', this.FirstName);}
 
     /*--- get Human instance ---*/
 

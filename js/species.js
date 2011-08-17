@@ -20,14 +20,12 @@ var Species = (function () {
 
         /*--- define members ---*/
         for(m in class_def) {
-
             Object.defineProperty(k, m,{
                 value : class_def[m],
                 writable: true,
                 enumerable: true,
                 configurable: true
             });
-
         }
 
         /*--- if initialize is named ---*/
@@ -59,6 +57,17 @@ var Species = (function () {
             configurable: false
         });
 
+        /*--- static ---*/
+        if(k.static) {
+            for(var m in k.static){
+                Object.defineProperty(k, m,{
+                    value : k.static[m],
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                });
+            }
+        }
 
         k.New = function(props) {
             var inst = Object.create(k),m;
@@ -71,8 +80,21 @@ var Species = (function () {
 
             inst.isInstance = true;
             if (inst.initialize) { inst.initialize.apply(inst, arguments); }
+
+            /*--- static ---*/
+            if(inst.static) {
+                for(var m in inst.static){
+                    inst[m] = undefined;
+                }
+                inst.static = undefined;
+            }
             return inst;
         }
+
+
+        //function(){ throw 'static member'; };
+
+
         return k;
     };
 

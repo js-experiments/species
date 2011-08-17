@@ -11,6 +11,7 @@
 - AOP is possible
 - ability to write plugins
 - inheritance and ability to call super members
+- static members
 
 ##Usage
 
@@ -41,6 +42,13 @@
 
         sayHello : function() {
             console.log('Hello, i am ' + this.FirstName + ' ' + this.LastName);
+        }
+
+        /*--- define static members ---*/
+        static : {
+            x : function(v) { console.log('x',v); },
+            y : function(v) { console.log('y',v); },
+            count : 12
         }
 
     });
