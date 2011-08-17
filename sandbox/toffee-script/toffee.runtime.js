@@ -58,10 +58,10 @@ var $T = Toffee = (function () {
         });
 
         /*--- static ---*/
-        if(k.static) {
-            for(var m in k.static){
+        if(k.Static) {
+            for(var m in k.Static){
                 Object.defineProperty(k, m,{
-                    value : k.static[m],
+                    value : k.Static[m],
                     writable: true,
                     enumerable: true,
                     configurable: true
@@ -82,11 +82,11 @@ var $T = Toffee = (function () {
             if (inst.initialize) { inst.initialize.apply(inst, arguments); }
 
             /*--- static ---*/
-            if(inst.static) {
-                for(var m in inst.static){
+            if(inst.Static) {
+                for(var m in inst.Static){
                     inst[m] = undefined;
                 }
-                inst.static = undefined;
+                inst.Static = undefined;
             }
             return inst;
         }

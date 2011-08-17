@@ -45,7 +45,7 @@
         }
 
         /*--- define static members ---*/
-        static : {
+        Static : {
             x : function(v) { console.log('x',v); },
             y : function(v) { console.log('y',v); },
             count : 12
