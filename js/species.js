@@ -58,7 +58,7 @@ var Species = (function () {
         });
 
         /*--- static ---*/
-        if(k.static) {
+        if(k.static!==undefined) {
             for(var m in k.static){
                 Object.defineProperty(k, m,{
                     value : k.static[m],
