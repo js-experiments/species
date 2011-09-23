@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC>
+<script src="../js/species.js"></script>
+
+
+
+<script>
+
+    (function(){
+        Ossicle = this.Ossicle = {};
+        Ossicle.Class = Species.Class;
+
+        genId = function() {
+            var S4 = function () {
+                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+            };
+            return S4() + S4() + S4() + S4()  + S4()  + S4() + S4() + S4();
+        },
+
+        Ossicle.Model = Ossicle.Class({
+
+            save : function() {
+                console.log('saving ...');
+                var s = Species.serialize(this);
+                console.log(s);
+            },
+
+            serialize : function() {
+                return Species.serialize(this);
+            },
+
+            getInstance : function(args) {
+                var inst = this.New(args);
+                if(!inst.id) inst.id = genId();
+                return inst;
+            }
+
+            //serialize and deserialize here ?
+
+        });
+
+        Ossicle.Models = Ossicle.Class({
+            items : [],
+
+            getInstance : function(args) {
+                var inst = this.New(args);
+                if(!inst.id) inst.id = genId();
+                return inst;
+            },
+
+            add:function(what){
+                if(what.length>0){
+                    this.items = this.items.concat(what);
+                } else {
+                    this.items.push(what);
+                }
+            },
+            get : function(id) {
+              return this.items.filter(function(item){ return item.id === id;})[0];
+            },
+
+            each : function(handler) {
+                this.items.forEach(handler);
+            },
+
+            filter : function(handler) { //return an array
+                return this.items.filter(handler);
+            },
+
+            sort : function() {
+                this.items.sort();
+                return this;
+            },
+
+            length : function() { return this.items.length; }
+
+
+        });
+
+        var Qs = Ossicle.Class({ /*Selector*/
+
+        });
+
+
+    }).call(this);
+
+
+
+
+    window.Human = Ossicle.Class({ Extends : Ossicle.Model,
+        /* default value */
+        firstName : 'John',
+        lastName : 'Doe',
+
+        /* constructor */
+        initialize : function Human(args) {
+            if(args) { for(var m in args) { this[m] = args[m]; } }
+        }
+
+    });
+
+
+    window.Humans = Ossicle.Class({ Extends : Ossicle.Models,
+        initialize : function Humans(humanArray) {
+            this.items = humanArray;
+        }
+    });
+
+    window.h1 = Human.getInstance({ id : '001' });
+    window.h2 = Human.getInstance({ firstName : 'Bob', lastName : 'Morane' });
+    window.h3 = Human.getInstance({ firstName : 'Sam' });
+
+    window.humans = Humans.getInstance([h1, h2, h3]);
+    window.people = Humans.getInstance([h2, h3]);
+
+    people.each(function(somebody){ console.log(somebody.serialize()); });
+    console.log('----------------------------------');
+
+    humans.each(function(somebody){ console.log(somebody.serialize()); });
+
+
+
+
+
+
+</script>
