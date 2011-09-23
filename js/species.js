@@ -111,6 +111,7 @@ var Species = (function () {
     //only if you are not watching members
     species.serialize = function(species_object) {
         //TODO: to verifiy if watchable
+        //TODO: remove instanceof, extend ...
         return JSON.stringify(species_object);
     }
 
